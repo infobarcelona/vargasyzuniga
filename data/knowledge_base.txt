@@ -1,0 +1,657 @@
+================================================================================
+BASE DE CONOCIMIENTO — VARGAS Y ZÚÑIGA ABOGADOS
+Sitio oficial: https://vargasyzuniga.cl
+Razón social: Vargas & Zúñiga Abogados Ltda.
+Fecha del scrape: 8 de junio de 2026
+Uso: knowledge base para bot asistente de atención al cliente
+================================================================================
+
+
+================================================================================
+SECCIÓN 1 — RESUMEN EJECUTIVO
+================================================================================
+
+Vargas y Zúñiga Abogados Ltda. es un estudio jurídico con sede
+principal en Temuco, Región de La Araucanía, Chile, y con oficina
+adicional en Osorno. El estudio fue fundado en 2010 y está conformado
+por los socios Alejandro G. Vargas Casas y Mónica P. Zúñiga Lillo,
+ambos abogados egresados de la Universidad Católica de Temuco.
+
+Lema del estudio: "Justicia y deber."
+
+El estudio atiende tanto a personas naturales como a empresas, con
+un foco particular en: derecho tributario (especialmente regulación
+y prescripción de deudas tributarias), recupero de valores y cobro
+ejecutivo, litigios civiles, laborales, de familia y de tránsito,
+asesoría societaria y contractual, y trámites ante servicios
+públicos relacionados con recursos naturales (aguas, minería, pesca,
+sanidad).
+
+Su cartera de clientes incluye empresas regionales de distintos
+rubros (importadoras, cooperativas agrícolas, inmobiliarias,
+ferreterías, comercializadoras de granos) y compañías de seguros,
+a quienes asesoran en litigios derivados de accidentes de tránsito.
+
+
+================================================================================
+SECCIÓN 2 — DATOS DE CONTACTO
+================================================================================
+
+OFICINA PRINCIPAL — TEMUCO
+- Dirección: Antonio Varas 687, oficina 1010, Torre Sinergia, Temuco,
+  Región de La Araucanía, Chile.
+- Teléfono: +56 45 232 4418
+- Horario de atención: Lunes a viernes, de 09:00 a 14:00 horas y de
+  15:00 a 18:30 horas.
+
+OFICINA SECUNDARIA — OSORNO
+- Teléfono: +56 64 221 3222
+- Horario de atención: Lunes a viernes, de 09:00 a 14:00 horas y de
+  15:00 a 18:30 horas (mismo horario que Temuco).
+
+EMAIL GENERAL
+- contacto@vargasyzuniga.cl
+
+EMAILS DE LOS SOCIOS
+- Alejandro Vargas Casas: avargas@vargasyzuniga.cl
+- Mónica Zúñiga Lillo: mzuniga@vargasyzuniga.cl
+
+SITIO WEB
+- https://vargasyzuniga.cl
+
+REDES SOCIALES
+- Facebook: https://www.facebook.com/vargasyzuniga/
+- WhatsApp: disponible mediante el ícono flotante en el sitio web
+  ("Estamos conectados").
+
+NOTA SOBRE LA DIRECCIÓN
+El mapa embebido en la página de contacto del sitio web señala
+"Manuel Bulnes N° 815, Temuco" como ubicación, mientras que el texto
+oficial repetido en todas las páginas indica "Antonio Varas 687,
+oficina 1010, Torre Sinergia, Temuco". Es posible que el mapa
+corresponda a una dirección anterior no actualizada. Ante cualquier
+duda del cliente sobre la dirección exacta, el bot debe usar la
+dirección de TEXTO oficial (Antonio Varas 687, oficina 1010, Torre
+Sinergia) y sugerir confirmar telefónicamente antes de una visita
+presencial.
+
+
+================================================================================
+SECCIÓN 3 — EQUIPO DE ABOGADOS
+================================================================================
+
+------------------------------------------
+3.1. ALEJANDRO G. VARGAS CASAS — SOCIO
+------------------------------------------
+Nombre completo: Alejandro Gabriel Vargas Casas
+Email: avargas@vargasyzuniga.cl
+
+Trayectoria:
+- Cursó sus estudios de Derecho en la Universidad Católica de
+  Temuco, egresando con distinción el año 2003.
+- 2005: se integra al Estudio Jurídico Franco & Cía., a cargo de
+  procesos civiles de importantes empresas regionales y nacionales,
+  así como causas bancarias.
+- 2006 a 2010: asume el cargo de Abogado Regional de la Tesorería
+  General de la República, Región de La Araucanía, patrocinando más
+  de 7.000 procesos de cobro ejecutivo de tributos morosos.
+- Primer semestre de 2010: Profesor de la Cátedra de Derecho
+  Procesal Civil en la Escuela de Derecho de la Universidad Católica
+  de Temuco.
+- Desde 2010 a la fecha: patrocina un importante número de procesos
+  civiles, causas ejecutivas, de regulación de deuda tributaria, y
+  presta asesoría en la adquisición de derechos de aprovechamiento
+  de aguas con fines hidroeléctricos.
+- Actualmente: candidato a Magíster en Derecho Privado en la
+  Universidad Autónoma de Chile.
+
+Áreas de especialización inferidas: derecho tributario (cobro
+ejecutivo, regulación y prescripción de deudas), derecho civil,
+derecho bancario, derecho de aguas (aprovechamiento con fines
+hidroeléctricos).
+
+------------------------------------------
+3.2. MÓNICA P. ZÚÑIGA LILLO — SOCIA
+------------------------------------------
+Nombre completo: Mónica Pamela Zúñiga Lillo
+Email: mzuniga@vargasyzuniga.cl
+
+Trayectoria:
+- Cursó sus estudios de Derecho en la Universidad Católica de
+  Temuco, egresando el año 2003.
+- 2005: cursa Diplomado sobre la Reforma Procesal Penal y Diplomado
+  sobre Derecho Empresarial, ambos dictados por la Universidad
+  Católica de Temuco.
+- Diciembre de 2005: jura como abogada, fecha desde la cual ejerce
+  libremente la profesión.
+- 2006 a 2008: imparte la cátedra de Derecho Político en la
+  Universidad Arturo Prat, sede Victoria.
+- Por más de 13 años (al momento de redacción del sitio): asesora a
+  importantes empresas de la región en el recupero de valores y a
+  dos Compañías de Seguros en litigios derivados de accidentes del
+  tránsito, en sus fases infraccional, civil y criminal.
+- Paralelamente: patrocina un importante número de causas de familia
+  y causas laborales.
+- Actualmente: candidata a Magíster en Derecho Privado en la
+  Universidad Autónoma de Chile.
+
+Áreas de especialización inferidas: recupero de valores, derecho de
+seguros y litigios de tránsito (fases infraccional, civil y
+criminal), derecho de familia, derecho laboral.
+
+
+================================================================================
+SECCIÓN 4 — ÁREAS DE PRÁCTICA (TRES GRANDES CATEGORÍAS)
+================================================================================
+
+------------------------------------------
+4.1. PERSONAS Y EMPRESAS (ASESORÍA PREVENTIVA Y CORPORATIVA)
+------------------------------------------
+- Constitución de Sociedades.
+- Fusiones.
+- Transformaciones societarias.
+- Asesoría tributaria.
+- Derecho inmobiliario.
+- Organización Patrimonial.
+- Disposiciones testamentarias.
+- Recupero de valores.
+- Asesoría contractual.
+- Due diligence.
+
+------------------------------------------
+4.2. TRAMITACIÓN DE LITIGIOS (CONTENCIOSO)
+------------------------------------------
+- Litigios Civiles.
+- Litigios Laborales.
+- Litigios Tributarios.
+- Litigios de Familia.
+- Quiebras.
+- Litigios Ley del Consumidor.
+- Litigios Comerciales.
+- Litigios de Tránsito.
+
+------------------------------------------
+4.3. SOLICITUDES ANTE SERVICIOS DEL ESTADO
+------------------------------------------
+- Prescripción de deuda tributaria Fiscal y Territorial.
+- Devolución de compensaciones indebidas efectuadas por el Servicio
+  de Tesorerías.
+- Solicitud de Derechos de Aprovechamiento de Aguas.
+- Solicitud de Derechos Mineros.
+- Concesiones acuícolas.
+- Concesiones marítimas.
+- Sumarios sanitarios.
+
+
+================================================================================
+SECCIÓN 5 — CARTERA DE CLIENTES
+================================================================================
+
+El estudio destaca en su sitio web los siguientes clientes
+(principalmente empresas regionales de distintos rubros):
+
+- Importadora Massmann
+- Cooperativa CAPUAL (www.capual.cl)
+- GRANOTRADE S.A. (www.granotrade.cl) — comercializadora de granos
+- Inmobiliaria INESPA Ltda. (www.inespa.cl)
+- D.R.S. Ltda. (www.drs.cl)
+- Cooperativa Dreves Ltda.
+- Ferretería La Olleta Ltda.
+- MCO Ltda.
+- PROVESUR Ltda.
+- Inversiones Ríos Del Sur Ltda.
+
+ADEMÁS (mencionado en la trayectoria de Mónica Zúñiga):
+- Dos Compañías de Seguros (no identificadas por nombre en el sitio),
+  para quienes el estudio litiga casos derivados de accidentes de
+  tránsito en sus fases infraccional, civil y criminal.
+
+PERFIL DE CLIENTE
+El estudio atiende principalmente a empresas regionales de
+Araucanía y Los Lagos de rubros agrícola, comercial, inmobiliario y
+de seguros, además de personas naturales que requieren asesoría en
+materia tributaria, de familia, sucesoria o civil.
+
+
+================================================================================
+SECCIÓN 6 — CONSULTA DE CAUSAS (SERVICIO DESTACADO)
+================================================================================
+
+El estudio ofrece orientación a sus clientes para revisar el estado
+de sus procesos judiciales ante los Tribunales Ordinarios de
+Justicia de Chile.
+
+CÓMO FUNCIONA
+- El Poder Judicial de Chile pone a disposición el portal
+  www.poderjudicial.cl para la consulta de causas.
+- El enlace específico para causas civiles es:
+  https://civil.pjud.cl/CIVILPORWEB/
+- El cliente debe ingresar los datos requeridos (normalmente RUT,
+  rol de la causa, tribunal) directamente en el portal del Poder
+  Judicial.
+
+SOPORTE DEL ESTUDIO
+Para consultas relacionadas con el ingreso de los datos de una causa
+al portal del Poder Judicial, el estudio ofrece apoyo a través de:
+- Teléfono Temuco: +56 45 232 4418
+- Teléfono Osorno: +56 64 221 3222
+- Horario: lunes a viernes de 09:00 a 14:00 y de 15:00 a 18:30 horas.
+- Email: contacto@vargasyzuniga.cl
+
+
+================================================================================
+SECCIÓN 7 — CONTENIDO DEL BLOG (DEUDAS TRIBUTARIAS)
+================================================================================
+
+El estudio mantiene un blog informativo en https://vargasyzuniga.cl/blog/
+con artículos enfocados en deuda tributaria, área de especialización
+de Alejandro Vargas Casas. Estos son los 3 artículos publicados:
+
+------------------------------------------
+7.1. QUÉ SON LAS DEUDAS TRIBUTARIAS
+------------------------------------------
+URL: https://vargasyzuniga.cl/deudas-tributarias/
+
+Contenido (resumen del artículo original):
+La deuda tributaria (u obligación tributaria de dinero) corresponde
+al crédito en favor del Fisco de Chile, proveniente de los impuestos
+que el contribuyente debió pagar en el plazo que la ley establece
+(IVA, Renta, Contribuciones, etc.). Esta deuda debe ser cobrada
+mediante un juicio especial, tramitado en una primera etapa por las
+Tesorerías del país, para luego ser llevado ante los tribunales
+ordinarios de justicia si corresponde. Las deudas tributarias también
+pueden originarse en diferencias de impuestos determinadas por el
+Servicio de Impuestos Internos (SII), multas cursadas por dicha
+entidad, e impuestos aduaneros, entre otras fuentes.
+
+------------------------------------------
+7.2. CÓMO SABER SI TENGO DEUDA TRIBUTARIA
+------------------------------------------
+URL: https://vargasyzuniga.cl/como-saber-si-tengo-deuda-tributaria/
+
+Contenido (resumen del artículo original):
+La única entidad que entrega fidedignamente esta información al
+contribuyente es la Tesorería General de la República. El
+contribuyente o su mandatario debe solicitar el correspondiente
+certificado de deudas en cualquiera de las oficinas regionales o
+provinciales de Tesorería a lo largo del país.
+
+------------------------------------------
+7.3. CÓMO SOLUCIONAR UNA DEUDA TRIBUTARIA
+------------------------------------------
+URL: https://vargasyzuniga.cl/como-solucionar-una-deuda-tributaria/
+
+Contenido (resumen del artículo original):
+La primera forma de solucionar una deuda tributaria es mediante el
+pago efectivo de la misma. El Servicio de Tesorerías está facultado
+para otorgar convenios de pago a los contribuyentes, permitiendo
+pagar la deuda en cuotas (entre 12 y 36 cuotas) y obtener beneficios
+de condonación de intereses y multas aplicados a dicha deuda.
+Adicionalmente, la legislación tributaria permite al contribuyente
+solucionar o eliminar su deuda SIN PAGO, mediante el derecho a
+solicitar la PRESCRIPCIÓN EXTINTIVA de la acción de cobro del Fisco
+de Chile, lo que puede llegar a permitir eliminar el 100% de la
+deuda. Esto requiere una revisión de la situación particular del
+contribuyente por un abogado especialista en regulación de deuda
+tributaria.
+
+
+================================================================================
+SECCIÓN 8 — FORMULARIO DE CONTACTO DEL SITIO
+================================================================================
+
+El sitio web cuenta con un formulario de contacto presente en la
+home, en la página de contacto, y en cada artículo del blog. Los
+campos solicitados son:
+- Tu nombre (requerido)
+- Tu correo electrónico (requerido)
+- Celular (requerido)
+- Asunto
+- Tu mensaje
+
+
+================================================================================
+SECCIÓN 9 — VÍNCULO PROFESIONAL DEL FUNDADOR DEL ESTUDIO
+================================================================================
+
+Durante 2005, Alejandro Vargas Casas se integró al Estudio Jurídico
+Franco & Cía. (www.francoycia.cl), teniendo a su cargo procesos
+civiles de importantes empresas regionales y nacionales, así como
+causas bancarias. Esta es la trayectoria profesional previa a la
+fundación de Vargas y Zúñiga Abogados Ltda. en 2010.
+
+NOTA AL BOT: si el cliente pregunta por la trayectoria anterior de
+los socios o por el Estudio Franco & Cía, esta es la única
+referencia disponible en el sitio.
+
+
+================================================================================
+SECCIÓN 10 — STACK TÉCNICO Y OBSERVACIONES DEL SITIO
+================================================================================
+
+CMS: WordPress 5.1.19 (versión visiblemente desactualizada al
+momento del scrape; las versiones actuales de WordPress son
+significativamente más recientes).
+
+Desarrollador / agencia: Publimarketing Chile SpA
+(https://publimarketing.cl/), según crédito en el footer.
+
+Año del copyright: "© 2010 Vargas & Zúñiga Abogados Ltda." — esto
+coincide con el año de fundación del estudio, pero sugiere que el
+copyright nunca se actualizó a años posteriores.
+
+OBSERVACIONES PARA EL DUEÑO DEL SITIO (NO PARA EL BOT)
+- El blog solo tiene 3 artículos, todos publicados en marzo de 2019,
+  sin actualizaciones posteriores visibles.
+- El ícono de WhatsApp está presente en el sitio (plugin "ht-click")
+  pero no se pudo confirmar si está vinculado a un número específico
+  o si redirige genéricamente.
+- La discrepancia entre la dirección del mapa (Manuel Bulnes 815) y
+  la dirección de texto (Antonio Varas 687) es un error de
+  consistencia que vale la pena corregir.
+- WordPress 5.1.19 es una versión antigua; se recomienda actualizar
+  por motivos de seguridad.
+
+
+================================================================================
+SECCIÓN 11 — PREGUNTAS FRECUENTES (FAQ) PARA EL BOT
+================================================================================
+
+A continuación, las preguntas más probables que un cliente puede
+hacer al estudio Vargas y Zúñiga Abogados.
+
+------------------------------------------
+PREGUNTAS GENERALES SOBRE EL ESTUDIO
+------------------------------------------
+
+P: ¿Qué es Vargas y Zúñiga Abogados?
+R: Es un estudio jurídico fundado en 2010, con sede principal en
+Temuco y oficina adicional en Osorno, conformado por los abogados
+Alejandro Vargas Casas y Mónica Zúñiga Lillo. Su lema es "Justicia y
+deber". Atienden tanto a personas naturales como a empresas, con
+foco en derecho tributario, recupero de valores, litigios civiles,
+laborales, de familia y de tránsito, asesoría societaria, y
+trámites ante servicios del Estado.
+
+P: ¿Dónde está ubicado el estudio?
+R: La oficina principal está en Antonio Varas 687, oficina 1010,
+Torre Sinergia, Temuco. También cuentan con oficina en Osorno.
+
+P: ¿Cuál es el horario de atención?
+R: Lunes a viernes, de 09:00 a 14:00 horas y de 15:00 a 18:30 horas,
+tanto en Temuco como en Osorno.
+
+P: ¿Cómo contacto al estudio?
+R: Puedes llamar a Temuco al +56 45 232 4418 o a Osorno al
++56 64 221 3222. También puedes escribir a contacto@vargasyzuniga.cl
+o completar el formulario de contacto en
+https://vargasyzuniga.cl/contacto/
+
+P: ¿Quiénes son los abogados del estudio?
+R: Los socios son Alejandro G. Vargas Casas y Mónica P. Zúñiga
+Lillo, ambos egresados de la Universidad Católica de Temuco el año
+2003.
+
+------------------------------------------
+PREGUNTAS SOBRE LOS ABOGADOS
+------------------------------------------
+
+P: ¿Cuál es la especialidad de Alejandro Vargas?
+R: Alejandro Vargas Casas se especializa en derecho tributario
+(fue Abogado Regional de la Tesorería General de la República entre
+2006 y 2010, patrocinando más de 7.000 procesos de cobro ejecutivo
+de tributos morosos), derecho civil, derecho bancario y derecho de
+aguas (asesoría en adquisición de derechos de aprovechamiento de
+aguas con fines hidroeléctricos). Es también profesor universitario
+y candidato a Magíster en Derecho Privado.
+
+P: ¿Cuál es la especialidad de Mónica Zúñiga?
+R: Mónica Zúñiga Lillo se especializa en recupero de valores y en
+litigios de tránsito (asesora a dos Compañías de Seguros en sus
+fases infraccional, civil y criminal), además de causas de familia
+y causas laborales. Es abogada desde diciembre de 2005 y candidata a
+Magíster en Derecho Privado.
+
+P: ¿Cómo contacto directamente a Alejandro Vargas?
+R: Puedes escribirle a avargas@vargasyzuniga.cl
+
+P: ¿Cómo contacto directamente a Mónica Zúñiga?
+R: Puedes escribirle a mzuniga@vargasyzuniga.cl
+
+------------------------------------------
+PREGUNTAS SOBRE ÁREAS DE PRÁCTICA
+------------------------------------------
+
+P: ¿Qué tipo de casos atiende el estudio?
+R: El estudio trabaja en tres grandes líneas: 1) Asesoría a
+personas y empresas (constitución de sociedades, fusiones,
+transformaciones societarias, asesoría tributaria, derecho
+inmobiliario, organización patrimonial, testamentos, recupero de
+valores, asesoría contractual, due diligence). 2) Tramitación de
+litigios (civiles, laborales, tributarios, de familia, quiebras,
+ley del consumidor, comerciales, de tránsito). 3) Solicitudes ante
+servicios del Estado (prescripción de deuda tributaria, devolución
+de compensaciones indebidas de Tesorerías, derechos de
+aprovechamiento de aguas, derechos mineros, concesiones acuícolas y
+marítimas, sumarios sanitarios).
+
+P: ¿Hacen constitución de empresas?
+R: Sí. El estudio asesora en constitución de sociedades, fusiones y
+transformaciones societarias.
+
+P: ¿Tramitan testamentos?
+R: Sí. El estudio asesora en disposiciones testamentarias como parte
+de su línea de organización patrimonial.
+
+P: ¿Llevan causas de familia?
+R: Sí. Mónica Zúñiga Lillo patrocina un importante número de causas
+de familia.
+
+P: ¿Llevan causas laborales?
+R: Sí. El estudio tramita litigios laborales, y Mónica Zúñiga Lillo
+patrocina específicamente este tipo de causas.
+
+P: ¿Tienen experiencia en accidentes de tránsito?
+R: Sí. Mónica Zúñiga Lillo asesora a dos Compañías de Seguros en
+litigios derivados de accidentes de tránsito, abarcando las fases
+infraccional, civil y criminal. El estudio también tramita litigios
+de tránsito en general.
+
+P: ¿Pueden ayudarme con derechos de agua?
+R: Sí. Alejandro Vargas Casas presta asesoría en la adquisición de
+derechos de aprovechamiento de aguas, incluyendo fines
+hidroeléctricos. El estudio también tramita solicitudes de derechos
+de aprovechamiento de aguas ante los servicios del Estado.
+
+P: ¿Tramitan derechos mineros?
+R: Sí, el estudio realiza solicitudes de derechos mineros ante los
+servicios del Estado correspondientes.
+
+P: ¿Hacen trámites de concesiones acuícolas o marítimas?
+R: Sí, ambas son parte de los servicios de solicitudes ante
+servicios del Estado que ofrece el estudio.
+
+P: ¿Llevan causas de quiebra?
+R: Sí, el estudio tramita litigios relacionados con quiebras.
+
+P: ¿Llevan causas de la Ley del Consumidor?
+R: Sí, el estudio tramita litigios bajo la Ley del Consumidor.
+
+------------------------------------------
+PREGUNTAS SOBRE DEUDA TRIBUTARIA (área destacada)
+------------------------------------------
+
+P: ¿Qué es una deuda tributaria?
+R: Es el crédito en favor del Fisco de Chile, proveniente de los
+impuestos que el contribuyente debió pagar en el plazo legal (IVA,
+Renta, Contribuciones, etc.). Esta deuda se cobra mediante un juicio
+especial, tramitado primero por las Tesorerías del país y luego,
+si corresponde, ante los tribunales ordinarios de justicia. También
+puede originarse en diferencias de impuestos determinadas por el
+Servicio de Impuestos Internos, multas de dicha entidad, o
+impuestos aduaneros.
+
+P: ¿Cómo sé si tengo deuda tributaria?
+R: La única entidad que puede entregarte esta información de forma
+fidedigna es la Tesorería General de la República. Debes solicitar
+el certificado de deudas en cualquier oficina regional o provincial
+de Tesorería del país, ya sea personalmente o a través de tu
+mandatario.
+
+P: ¿Cómo soluciono una deuda tributaria?
+R: La primera vía es el pago efectivo. El Servicio de Tesorerías
+puede otorgar convenios de pago en cuotas (entre 12 y 36 cuotas),
+con beneficios de condonación de intereses y multas. También existe
+la posibilidad de solicitar la PRESCRIPCIÓN EXTINTIVA de la acción
+de cobro del Fisco, lo que en algunos casos puede eliminar el 100%
+de la deuda sin pago. Esto requiere una revisión de tu situación
+particular por un abogado especialista, como los de este estudio.
+
+P: ¿Qué es la prescripción de una deuda tributaria?
+R: Es el derecho del contribuyente a solicitar que se extinga la
+acción de cobro del Fisco de Chile sobre una deuda tributaria,
+cuando ha transcurrido el plazo legal correspondiente sin que el
+Fisco haya ejercido su derecho de cobro de forma efectiva. Puede
+permitir eliminar el 100% de la deuda. El estudio cuenta con
+experiencia específica en este tipo de gestiones, ya que Alejandro
+Vargas Casas trabajó 4 años como Abogado Regional de la Tesorería
+General de la República.
+
+P: ¿El estudio puede ayudarme con mi deuda tributaria?
+R: Sí, es una de las áreas de mayor especialización del estudio.
+Te recomendamos contactarlos directamente al +56 45 232 4418 (Temuco)
+o +56 64 221 3222 (Osorno) para una revisión personalizada de tu
+caso, ya que cada situación de deuda tributaria requiere análisis
+particular.
+
+------------------------------------------
+PREGUNTAS SOBRE CONSULTA DE CAUSAS
+------------------------------------------
+
+P: ¿Cómo consulto el estado de mi causa judicial?
+R: Puedes consultar directamente en el portal del Poder Judicial de
+Chile, en https://civil.pjud.cl/CIVILPORWEB/ (para causas civiles),
+ingresando los datos requeridos. Si tienes dudas sobre cómo ingresar
+los datos de tu causa, el estudio te puede ayudar: contáctalos al
++56 45 232 4418 (Temuco) o +56 64 221 3222 (Osorno), de lunes a
+viernes de 09:00 a 14:00 y de 15:00 a 18:30 horas.
+
+P: ¿El estudio me puede dar el estado de mi causa directamente?
+R: La consulta directa la realiza el cliente en el portal del Poder
+Judicial (https://civil.pjud.cl/CIVILPORWEB/). El estudio ofrece
+apoyo y orientación para el ingreso correcto de los datos, pero la
+fuente oficial de información es siempre el Poder Judicial.
+
+------------------------------------------
+PREGUNTAS SOBRE CLIENTES Y EXPERIENCIA
+------------------------------------------
+
+P: ¿Qué tipo de clientes atiende el estudio?
+R: Atienden tanto a personas naturales como a empresas. Entre sus
+clientes destacados figuran empresas regionales de distintos
+rubros: importadoras (Importadora Massmann), cooperativas agrícolas
+(Cooperativa CAPUAL, Cooperativa Dreves), comercializadoras de
+granos (GRANOTRADE S.A.), inmobiliarias (Inmobiliaria INESPA),
+ferreterías (Ferretería La Olleta), entre otras. También asesoran a
+compañías de seguros en litigios de tránsito.
+
+P: ¿Tienen experiencia con compañías de seguros?
+R: Sí. Mónica Zúñiga Lillo asesora hace más de 13 años a dos
+Compañías de Seguros en litigios derivados de accidentes de
+tránsito, en sus fases infraccional, civil y criminal.
+
+------------------------------------------
+PREGUNTAS QUE EL BOT NO DEBE RESPONDER DIRECTAMENTE
+------------------------------------------
+
+Si te preguntan sobre el estado de una causa judicial ESPECÍFICA,
+nunca inventes información. Indica que la consulta oficial se hace
+en https://civil.pjud.cl/CIVILPORWEB/ y que el estudio puede
+ayudarte a contactarlos directamente para orientación.
+
+Si te piden asesoría jurídica sustantiva sobre un caso particular
+(¿tengo razón en mi juicio?, ¿qué probabilidad tengo de ganar?,
+¿cuánto me costaría tal trámite?), el bot NO debe dar opiniones
+legales ni estimaciones de honorarios. Indica que cada caso requiere
+una evaluación personalizada por uno de los abogados del estudio y
+deriva al contacto directo.
+
+Si te preguntan por información personal de otro cliente del
+estudio (causas, deudas, contratos), NUNCA entregues esa
+información. Es confidencial y solo puede gestionarse directamente
+con el cliente titular o su abogado.
+
+Si te preguntan por honorarios o tarifas específicas, indica que el
+estudio no publica una tabla de honorarios en su sitio web y que el
+valor de cada servicio se determina según la complejidad del caso.
+Deriva al contacto directo para una cotización personalizada.
+
+Si te preguntan sobre temas legales fuera de las áreas de práctica
+declaradas del estudio (por ejemplo, derecho penal complejo,
+propiedad intelectual, derecho internacional), indica que no es una
+de las áreas declaradas en el sitio web y sugiere preguntar
+directamente al estudio si pueden derivarte a un especialista.
+
+
+================================================================================
+SECCIÓN 12 — RESUMEN PARA RECORDAR (CIERRE)
+================================================================================
+
+Vargas y Zúñiga Abogados en titulares:
+
+QUIÉNES SOMOS
+- Estudio jurídico Vargas & Zúñiga Abogados Ltda.
+- Fundado en 2010.
+- Lema: "Justicia y deber."
+- Socios: Alejandro G. Vargas Casas y Mónica P. Zúñiga Lillo.
+
+DÓNDE ESTAMOS
+- Oficina principal: Antonio Varas 687, oficina 1010, Torre
+  Sinergia, Temuco.
+- Oficina secundaria: Osorno.
+
+CUÁNDO ATENDEMOS
+- Lunes a viernes, 09:00 a 14:00 y 15:00 a 18:30 horas, en ambas
+  oficinas.
+
+CÓMO CONTACTARNOS
+- Temuco: +56 45 232 4418
+- Osorno: +56 64 221 3222
+- Email general: contacto@vargasyzuniga.cl
+- Email Alejandro Vargas: avargas@vargasyzuniga.cl
+- Email Mónica Zúñiga: mzuniga@vargasyzuniga.cl
+- Facebook: https://www.facebook.com/vargasyzuniga/
+
+QUÉ HACEMOS
+- Asesoría a personas y empresas: constitución de sociedades,
+  fusiones, transformaciones societarias, asesoría tributaria,
+  derecho inmobiliario, organización patrimonial, testamentos,
+  recupero de valores, asesoría contractual, due diligence.
+- Tramitación de litigios: civiles, laborales, tributarios, de
+  familia, quiebras, Ley del Consumidor, comerciales, de tránsito.
+- Solicitudes ante el Estado: prescripción de deuda tributaria,
+  devolución de compensaciones indebidas de Tesorerías, derechos de
+  aprovechamiento de aguas, derechos mineros, concesiones acuícolas
+  y marítimas, sumarios sanitarios.
+
+ESPECIALIDADES DESTACADAS
+- Alejandro Vargas Casas: deuda tributaria y cobro ejecutivo
+  (ex Abogado Regional de Tesorería), derecho de aguas con fines
+  hidroeléctricos.
+- Mónica Zúñiga Lillo: recupero de valores, litigios de tránsito
+  (asesora a Compañías de Seguros), causas de familia y laborales.
+
+CLIENTES DESTACADOS
+- Importadora Massmann, Cooperativa CAPUAL, GRANOTRADE S.A.,
+  Inmobiliaria INESPA, D.R.S. Ltda., Cooperativa Dreves, Ferretería
+  La Olleta, MCO Ltda., PROVESUR Ltda., Inversiones Ríos Del Sur
+  Ltda., y dos Compañías de Seguros (no identificadas por nombre).
+
+CONSULTA DE CAUSAS
+- Portal oficial: https://civil.pjud.cl/CIVILPORWEB/
+- El estudio orienta en el ingreso de datos vía teléfono o email.
+
+
+================================================================================
+FIN DE LA BASE DE CONOCIMIENTO
+================================================================================

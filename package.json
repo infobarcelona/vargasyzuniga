@@ -1,0 +1,22 @@
+{
+  "name": "vyz-kit-legal-backoffice",
+  "version": "0.1.0",
+  "description": "Back office para Kit Legal (Vargas y Zuniga Abogados): bot de calificacion de leads + agendamiento real en Google Calendar + correos de confirmacion.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "googleapis": "^144.0.0",
+    "imapflow": "^1.0.171",
+    "mailparser": "^3.7.1",
+    "mongodb": "^6.10.0",
+    "nodemailer": "^6.9.16",
+    "xlsx": "^0.18.5"
+  }
+}
