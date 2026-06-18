@@ -125,7 +125,8 @@
       font-size: 14px; line-height: 1.55;
       word-break: break-word; white-space: pre-wrap;
       animation: fadeUp 0.22s ease;
-      border-radius: 16px;
+      border-radius: 0;
+      position: relative;
     }
     @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
@@ -133,7 +134,15 @@
       background: rgba(20,30,40,0.82);
       color: rgba(255,255,255,0.92);
       border: 1px solid rgba(180,160,110,0.2);
-      border-bottom-left-radius: 3px;
+    }
+    .bubble.bot::after {
+      content: "";
+      position: absolute;
+      bottom: -7px; left: 12px;
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid rgba(20,30,40,0.82);
     }
     .bubble.bot strong { color: #c9a96e; font-weight: 500; }
 
@@ -141,7 +150,15 @@
       background: rgba(180,160,110,0.18);
       color: rgba(255,255,255,0.88);
       border: 1px solid rgba(180,160,110,0.3);
-      border-bottom-right-radius: 3px;
+    }
+    .bubble.user::after {
+      content: "";
+      position: absolute;
+      bottom: -7px; right: 12px;
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid rgba(180,160,110,0.18);
     }
 
     .msg-time {
@@ -156,7 +173,7 @@
       padding: 11px 15px;
       background: rgba(20,30,40,0.82);
       border: 1px solid rgba(180,160,110,0.2);
-      border-radius: 16px; border-bottom-left-radius: 3px;
+      border-radius: 0;
       animation: fadeUp 0.2s ease;
     }
     .typing-bubble span {
@@ -218,12 +235,7 @@
 <div id="app">
   <div id="header">
     <div id="avatar">
-      <img
-        src="https://vargasyzuniga.cl/wp-content/uploads/2019/03/montana.jpg"
-        alt="VZ"
-        onerror="this.style.display='none';document.getElementById('av-fb').style.display='flex'"
-      />
-      <div id="av-fb" class="avatar-fallback" style="display:none;width:100%;height:100%;background:#1e2d38;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#c9a96e;">VZ</div>
+      <div style="width:100%;height:100%;background:#1e2d38;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#c9a96e;letter-spacing:0.05em;">VZ</div>
     </div>
     <div id="header-info">
       <div id="bot-name">Renata</div>
@@ -325,7 +337,7 @@
   }
 
   function miniAvatar(){
-    return "<div class=\"msg-avatar\"><img src=\""+AVATAR_URL+"\" alt=\"VZ\" onerror=\"this.parentNode.innerHTML='<div style=&quot;width:100%;height:100%;background:#1e2d38;display:flex;align-items:center;justify-content:center;font-size:10px;color:#c9a96e;font-weight:600&quot;>VZ</div>'\"/></div>";
+    return "<div class=\"msg-avatar\" style=\"background:#1e2d38;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:#c9a96e;letter-spacing:0.03em;\">VZ</div>";
   }
 
   function addMsg(role,text){
