@@ -81,6 +81,27 @@ verla aparecer en tu Google Calendar y vas a recibir los dos correos).
 - `server.js` — el endpoint `/api/chat` que une todo, con sesiones en
   memoria (suficiente para esta fase de pruebas).
 
+## WhatsApp (Baileys)
+
+El bot también puede atender por WhatsApp, usando exactamente la misma
+lógica (prompt, score, agendamiento) que el chat web — todo vive en
+`lib/conversationEngine.js`, compartido por ambos canales.
+
+**Primera conexión:** con el servidor corriendo, abre `/whatsapp` en el
+navegador (ej. `http://localhost:3000/whatsapp` en local, o
+`https://tu-app.onrender.com/whatsapp` en producción). Va a mostrar un
+código QR — ábrelo con el teléfono dedicado de la oficina: WhatsApp →
+Ajustes → Dispositivos vinculados → Vincular un dispositivo, y escanea.
+
+La sesión queda guardada en MongoDB (colección `whatsapp_auth`), no en
+archivos locales — así sobrevive cualquier reinicio o redeploy en Render
+sin tener que volver a escanear el QR cada vez.
+
+Si el WhatsApp se desconecta desde el teléfono (sesión cerrada
+manualmente), hay que volver a `/whatsapp` y escanear de nuevo. Si se
+desconecta por una falla de red transitoria, el sistema reintenta la
+reconexión automáticamente sin necesidad de re-escanear.
+
 ## Pendiente para después
 
 - Mover las sesiones de memoria a MongoDB (para que sobrevivan un

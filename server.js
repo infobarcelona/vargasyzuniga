@@ -4,124 +4,23 @@ const cors = require('cors');
 const path = require('path');
 
 const { connectDB } = require('./lib/db');
-const { construirSystemPrompt } = require('./lib/prompt');
-const { generarRespuesta } = require('./lib/anthropic');
-const { extraerYFusionarDatos } = require('./lib/dataExtractor');
-const { calcularScore } = require('./lib/scoring');
-const { consultarDisponibilidad } = require('./lib/googleCalendar');
-const { agendarYNotificar } = require('./lib/scheduler');
+const { procesarMensaje } = require('./lib/conversationEngine');
 const { correrCicloWatcher } = require('./lib/pjudWatcher');
+const { iniciarWhatsApp, getEstadoWhatsApp, getQRComoImagenPNG } = require('./lib/whatsappBot');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const UMBRAL_SCORE = parseInt(process.env.UMBRAL_SCORE || '70', 10);
-const NOMBRE_BOT = process.env.NOMBRE_BOT || 'Renata';
-const NOMBRE_ESTUDIO = process.env.NOMBRE_ESTUDIO || 'Vargas y Zuñiga Abogados';
-
-// Sesiones en memoria — suficiente para esta fase de pruebas.
-// session = { conversation: [], leadData: {}, citaAgendada: bool,
-//             ultimaFechaConsultada: string|null, horariosOcupados: array|null }
-const sessions = new Map();
-
-function getSession(sessionId) {
-  if (!sessions.has(sessionId)) {
-    sessions.set(sessionId, {
-      conversation: [],
-      leadData: {},
-      citaAgendada: false,
-      ultimaFechaConsultada: null,
-      horariosOcupados: null
-    });
-  }
-  return sessions.get(sessionId);
-}
-
 app.post('/api/chat', async (req, res) => {
   const { sessionId, message } = req.body;
   if (!sessionId || !message) {
     return res.status(400).json({ error: 'Faltan sessionId o message' });
   }
-
-  const session = getSession(sessionId);
-  session.conversation.push({ role: 'user', content: message });
-
   try {
-    // Si el modelo ya conoce una fecha distinta a la última consultada,
-    // refrescamos disponibilidad antes de construir el prompt.
-    if (
-      session.leadData.fecha_visita &&
-      session.leadData.fecha_visita !== session.ultimaFechaConsultada
-    ) {
-      try {
-        session.horariosOcupados = await consultarDisponibilidad(session.leadData.fecha_visita);
-      } catch (e) {
-        console.error('[Calendar] No se pudo consultar disponibilidad:', e.message);
-        session.horariosOcupados = null;
-      }
-      session.ultimaFechaConsultada = session.leadData.fecha_visita;
-    }
-
-    const scoreInfoPrevio = calcularScore(session.leadData);
-
-    const systemPrompt = construirSystemPrompt({
-      nombreBot: NOMBRE_BOT,
-      nombreEstudio: NOMBRE_ESTUDIO,
-      horariosOcupados: session.horariosOcupados,
-      scoreInfo: scoreInfoPrevio,
-      umbral: UMBRAL_SCORE
-    });
-
-    const respuestaCruda = await generarRespuesta(systemPrompt, session.conversation);
-
-    const { leadData, cleanReply, parsedOk, parseError } = extraerYFusionarDatos(
-      respuestaCruda,
-      session.leadData
-    );
-    session.leadData = leadData;
-    session.conversation.push({ role: 'assistant', content: cleanReply });
-
-    const scoreInfo = calcularScore(session.leadData);
-
-    let schedulingResult = null;
-    const datosMinimosCompletos =
-      session.leadData.nombre &&
-      session.leadData.telefono &&
-      session.leadData.email &&
-      session.leadData.fecha_visita &&
-      session.leadData.hora_visita;
-
-    if (datosMinimosCompletos && scoreInfo.score >= UMBRAL_SCORE && !session.citaAgendada) {
-      session.citaAgendada = true; // optimista, se revierte si falla un paso critico
-      schedulingResult = await agendarYNotificar({
-        leadData: session.leadData,
-        scoreInfo,
-        nombreBot: NOMBRE_BOT,
-        nombreEstudio: NOMBRE_ESTUDIO
-      });
-      if (!schedulingResult.ok) {
-        session.citaAgendada = false; // permite reintentar en el proximo turno
-        console.error('[SCHEDULER] Fallo:', schedulingResult);
-      }
-    }
-
-    res.json({
-      reply: cleanReply,
-      debug: {
-        leadData: session.leadData,
-        score: scoreInfo.score,
-        clasificacion: scoreInfo.clasificacion,
-        desglose: scoreInfo.desglose,
-        umbral: UMBRAL_SCORE,
-        citaAgendada: session.citaAgendada,
-        datosMinimosCompletos: !!datosMinimosCompletos,
-        parsedOk,
-        parseError: parseError || null,
-        schedulingResult
-      }
-    });
+    const resultado = await procesarMensaje(sessionId, message);
+    res.json(resultado);
   } catch (err) {
     console.error('[CHAT] Error:', err);
     res.status(500).json({ error: err.message });
@@ -141,10 +40,64 @@ app.post('/api/pjud/run-once', async (req, res) => {
   }
 });
 
+// --- WhatsApp ---
+app.get('/api/whatsapp/status', (req, res) => res.json(getEstadoWhatsApp()));
+
+app.get('/api/whatsapp/qr-image', async (req, res) => {
+  const buffer = await getQRComoImagenPNG();
+  if (!buffer) return res.status(404).json({ error: 'No hay QR disponible en este momento.' });
+  res.set('Content-Type', 'image/png');
+  res.send(buffer);
+});
+
+app.get('/whatsapp', (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Conectar WhatsApp — Kit Legal</title>
+<style>
+  body { font-family: -apple-system, sans-serif; text-align: center; padding: 40px 20px; }
+  img { margin-top: 20px; border: 1px solid #ddd; border-radius: 8px; }
+  #status { font-size: 18px; margin-top: 16px; }
+  .conectado { color: #22c55e; font-weight: bold; }
+  .esperando { color: #f59e0b; }
+</style>
+</head>
+<body>
+  <h2>Conectar WhatsApp del estudio</h2>
+  <p>Abre WhatsApp en el teléfono dedicado → Ajustes → Dispositivos vinculados → Vincular dispositivo, y escanea el código.</p>
+  <div id="qr-container"></div>
+  <div id="status">Cargando estado...</div>
+  <script>
+    async function actualizar() {
+      const res = await fetch('/api/whatsapp/status');
+      const data = await res.json();
+      const statusEl = document.getElementById('status');
+      const qrContainer = document.getElementById('qr-container');
+
+      if (data.status === 'conectado') {
+        statusEl.innerHTML = '<span class="conectado">✅ Conectado correctamente</span>';
+        qrContainer.innerHTML = '';
+      } else if (data.qrDisponible) {
+        statusEl.innerHTML = '<span class="esperando">⏳ Esperando que escanees el código</span>';
+        qrContainer.innerHTML = '<img src="/api/whatsapp/qr-image?t=' + Date.now() + '" width="320" height="320" />';
+      } else {
+        statusEl.textContent = 'Generando código QR...';
+        qrContainer.innerHTML = '';
+      }
+    }
+    actualizar();
+    setInterval(actualizar, 4000);
+  </script>
+</body>
+</html>`);
+});
+
 const PORT = process.env.PORT || 3000;
 
 connectDB()
-  .then(() => {
+  .then((db) => {
     app.listen(PORT, () => {
       console.log(`[SERVER] Kit Legal backoffice corriendo en puerto ${PORT}`);
     });
@@ -162,6 +115,11 @@ connectDB()
       }
     }, intervaloMin * 60 * 1000);
     console.log(`[PJUD] Watcher automatico activo cada ${intervaloMin} minutos.`);
+
+    // Conexion de WhatsApp
+    iniciarWhatsApp(db).catch((err) => {
+      console.error('[WHATSAPP] Error al iniciar:', err.message);
+    });
   })
   .catch((err) => {
     console.error('[SERVER] No se pudo conectar a MongoDB:', err.message);
