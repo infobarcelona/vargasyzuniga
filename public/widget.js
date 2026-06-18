@@ -13,24 +13,28 @@
     #vyz-widget-launcher {
       position: fixed; bottom: 20px; right: 20px; z-index: 999999;
       width: 60px; height: 60px; border-radius: 50%;
-      border: 2px solid transparent;
-      background: linear-gradient(#0c1318, #0c1318) padding-box, linear-gradient(135deg, #486c7c, #6b96a8, #5c5c5c) border-box;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 18px rgba(72,108,124,0.5);
+      background: #344e58;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: transform 0.2s ease;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     #vyz-widget-launcher:hover { transform: scale(1.06); }
-    #vyz-widget-launcher .vyz-letter {
-      width: 100%; height: 100%; border-radius: 50%;
-      background: linear-gradient(135deg,#486c7c,#344e58);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 700; color: white;
+    #vyz-widget-launcher::before {
+      content: ''; position: absolute; inset: -8px; border-radius: 50%;
+      background: #344e58; opacity: 0.35; z-index: -1;
+      animation: vyz-breathe 2.4s ease-out infinite;
     }
+    @keyframes vyz-breathe {
+      0%   { transform: scale(0.85); opacity: 0.4; }
+      70%  { transform: scale(1.35); opacity: 0; }
+      100% { transform: scale(1.35); opacity: 0; }
+    }
+    #vyz-widget-launcher .vyz-icon { width: 26px; height: 26px; }
     #vyz-widget-launcher .vyz-dot {
       position: absolute; top: -2px; right: -2px;
       width: 14px; height: 14px; border-radius: 50%;
-      background: #25D366; border: 2px solid #1a0000;
+      background: #25D366;
       animation: vyz-pulse 2s ease-in-out infinite;
     }
     @keyframes vyz-pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
@@ -68,7 +72,11 @@
 
   var launcher = document.createElement('div');
   launcher.id = 'vyz-widget-launcher';
-  launcher.innerHTML = '<div class="vyz-letter">R</div><div class="vyz-dot"></div>';
+  launcher.innerHTML =
+    '<svg class="vyz-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>' +
+    '</svg>' +
+    '<div class="vyz-dot"></div>';
 
   var panel = document.createElement('div');
   panel.id = 'vyz-widget-panel';
