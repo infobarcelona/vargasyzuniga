@@ -196,9 +196,10 @@
       color: var(--white);
       font-size: 16px; font-family: "Inter", sans-serif;
       outline: none; resize: none;
-      line-height: 1.4; max-height: 100px; overflow-y: auto;
+      line-height: 1.4; max-height: 100px; overflow-y: hidden;
       -webkit-appearance: none; transition: border-color 0.2s;
     }
+    #msg-input.scrollable { overflow-y: auto; }
     #msg-input:focus { border-color: var(--celeste); }
     #msg-input::placeholder { color: rgba(255,255,255,0.35); font-size: 14px; }
 
@@ -283,7 +284,9 @@
 
   input.addEventListener("input",function(){
     this.style.height="auto";
+    var needsScroll = this.scrollHeight > 100;
     this.style.height=Math.min(this.scrollHeight,100)+"px";
+    this.classList.toggle("scrollable", needsScroll);
     sendBtn.disabled=!this.value.trim();
   });
 
@@ -349,10 +352,24 @@
 
   function hideTyping(){var el=document.getElementById("typing");if(el)el.remove();}
 
+  function isMobile(){
+    // OJO: no medimos el ancho de ventana, porque este chat vive dentro
+    // de un iframe angosto (380px) cuando esta embebido como widget, lo
+    // que haria pensar que SIEMPRE es movil incluso en un computador de
+    // escritorio. En vez de eso, detectamos si el dispositivo usa touch
+    // como mecanismo principal de entrada (eso si distingue celular de
+    // computador, sin importar que tan angosto sea el contenedor).
+    return window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  }
+
   async function send(){
     var text=input.value.trim();
     if(!text||busy)return;
-    input.value=""; input.style.height="auto"; input.blur();
+    input.value=""; input.style.height="auto";
+    // En movil cerramos el teclado al enviar (asi se ve mas de la
+    // conversacion). En escritorio NO quitamos el foco: el cursor debe
+    // quedar listo para seguir escribiendo sin tener que hacer clic de nuevo.
+    if(isMobile()){ input.blur(); }
     sendBtn.disabled=true;
     addMsg("user",text);
     busy=true; showTyping();
@@ -370,6 +387,9 @@
       addMsg("bot","Disculpe, tuvimos un problema t\u00e9cnico. Por favor intente de nuevo.");
     }
     busy=false; sendBtn.disabled=!input.value.trim();
+    // En escritorio devolvemos el foco al input apenas el bot responde,
+    // para que el cursor quede parpadeando listo para el siguiente mensaje.
+    if(!isMobile()){ input.focus(); }
   }
 
   sendBtn.addEventListener("click",send);

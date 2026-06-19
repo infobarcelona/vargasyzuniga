@@ -89,6 +89,15 @@
 
   function toggle() {
     panel.classList.toggle('vyz-open');
+    // Mientras el chat esta abierto (sobre todo en movil, donde el panel
+    // ocupa toda la pantalla) escondemos el boton flotante para que no
+    // quede dibujado encima del cuadro de texto. El panel ya tiene su
+    // propia "X" para cerrar.
+    if (panel.classList.contains('vyz-open')) {
+      launcher.style.display = 'none';
+    } else {
+      launcher.style.display = 'flex';
+    }
   }
 
   launcher.addEventListener('click', toggle);
