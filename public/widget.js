@@ -13,7 +13,7 @@
     #vyz-widget-launcher {
       position: fixed; bottom: 20px; right: 20px; z-index: 999999;
       width: 60px; height: 60px; border-radius: 50%;
-      background: #344e58;
+      background: #0d9dcd;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: transform 0.2s ease;
@@ -22,7 +22,7 @@
     #vyz-widget-launcher:hover { transform: scale(1.06); }
     #vyz-widget-launcher::before {
       content: ''; position: absolute; inset: -8px; border-radius: 50%;
-      background: #344e58; opacity: 0.35; z-index: -1;
+      background: #0d9dcd; opacity: 0.35; z-index: -1;
       animation: vyz-breathe 2.4s ease-out infinite;
     }
     @keyframes vyz-breathe {
@@ -44,9 +44,9 @@
       width: 380px; height: 600px; max-height: 80vh;
       border-radius: 18px; overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(72,108,124,0.3);
+      border: 1px solid rgba(13,157,205,0.35);
       display: none; flex-direction: column;
-      background: #0c1318;
+      background: #262b30;
     }
     #vyz-widget-panel.vyz-open { display: flex; }
     #vyz-widget-panel iframe { width: 100%; height: 100%; border: none; }
