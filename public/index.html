@@ -4,18 +4,19 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="theme-color" content="#262b30"/>
+  <meta name="theme-color" content="#ffffff"/>
   <title>Renata — Vargas &amp; Zúñiga Abogados</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --marengo: #262b30;
-      --marengo-light: #2e343a;
-      --celeste: #0d9dcd;
-      --celeste-dark: #0a7aa3;
-      --white: #ffffff;
+      --marengo: #ffffff;
+      --marengo-light: #f1edeb;
+      --celeste: #1d1d1b;
+      --celeste-dark: #5b5b59;
+      --white: #1d1d1b;
+      --accent: #dc1f3e;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; -webkit-font-smoothing: antialiased; }
@@ -31,26 +32,27 @@
     /* ── HEADER ── */
     #header {
       flex-shrink: 0; z-index: 10; position: relative;
-      background: var(--marengo);
-      border-bottom: 1px solid rgba(13,157,205,0.25);
+      background: #1d1d1b;
+      border-bottom: 1px solid rgba(220,31,62,0.25);
       display: flex; align-items: center; gap: 12px;
       padding: 11px 16px;
     }
 
     #avatar {
       width: 40px; height: 40px; flex-shrink: 0;
-      border: 1px solid rgba(13,157,205,0.4);
+      border: 1px solid rgba(220,31,62,0.3);
+      border-radius: 50%;
       overflow: hidden;
       background: var(--marengo-light);
       display: flex; align-items: center; justify-content: center;
     }
-    #avatar img { width: 78%; height: 78%; object-fit: contain; }
+    #avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     #header-info { flex: 1; min-width: 0; }
     #bot-name {
       font-family: "Inter", sans-serif;
       font-size: 12px; font-weight: 500;
-      color: var(--white); letter-spacing: 0.08em;
+      color: #ffffff; letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     #bot-subtitle {
@@ -64,16 +66,9 @@
       animation: pulse 2.4s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    #status-text { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+    #status-text { font-size: 9px; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    #brand-block { text-align: right; flex-shrink: 0; }
-    #brand-monogram {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px;
-      background: var(--marengo-light); border: 1px solid rgba(13,157,205,0.4);
-      padding: 4px;
-    }
-    #brand-monogram img { width: 100%; height: 100%; object-fit: contain; }
+    #brand-block { text-align: right; flex-shrink: 0; margin-top: 18px; }
     #brand-name {
       font-family: "Cormorant Garamond", serif;
       font-size: 11px; font-weight: 400;
@@ -97,12 +92,13 @@
 
     .msg-avatar {
       width: 22px; height: 22px; flex-shrink: 0;
-      border: 1px solid rgba(13,157,205,0.35);
+      border: 1px solid rgba(220,31,62,0.25);
+      border-radius: 50%;
       overflow: hidden; margin-bottom: 2px;
       background: var(--marengo-light);
       display: flex; align-items: center; justify-content: center;
     }
-    .msg-avatar img { width: 75%; height: 75%; object-fit: contain; }
+    .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .bubble-wrap { display: flex; flex-direction: column; max-width: 80%; }
     .row.user .bubble-wrap { align-items: flex-end; }
@@ -113,41 +109,23 @@
       font-size: 14px; line-height: 1.55;
       word-break: break-word; white-space: pre-wrap;
       animation: fadeUp 0.22s ease;
-      border-radius: 0;
+      border-radius: 16px;
       position: relative;
-      color: var(--white);
+      color: #ffffff;
     }
     @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
     .bubble.bot {
       background: var(--celeste);
     }
-    .bubble.bot::after {
-      content: "";
-      position: absolute;
-      bottom: -7px; left: 12px;
-      width: 0; height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 7px solid var(--celeste);
-    }
-    .bubble.bot strong { color: var(--white); font-weight: 700; }
+    .bubble.bot strong { color: #ffffff; font-weight: 700; }
 
     .bubble.user {
       background: var(--celeste-dark);
     }
-    .bubble.user::after {
-      content: "";
-      position: absolute;
-      bottom: -7px; right: 12px;
-      width: 0; height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 7px solid var(--celeste-dark);
-    }
 
     .msg-time {
-      font-size: 9px; color: rgba(255,255,255,0.3);
+      font-size: 9px; color: rgba(29,29,27,0.4);
       margin-top: 4px; padding: 0 3px;
       letter-spacing: 0.04em;
     }
@@ -172,26 +150,27 @@
     /* ── BRANDING ── */
     #branding {
       flex-shrink: 0; text-align: center;
-      font-size: 9px; color: rgba(255,255,255,0.25);
+      font-size: 9px; color: rgba(29,29,27,0.35);
       padding: 3px 0 4px; z-index: 1; position: relative;
       letter-spacing: 0.06em; text-transform: uppercase;
       background: var(--marengo);
     }
-    #branding a { color: rgba(13,157,205,0.8); text-decoration: none; }
+    #branding a { color: rgba(220,31,62,0.85); text-decoration: none; }
 
     /* ── INPUT ── */
     #input-area {
       flex-shrink: 0; z-index: 10; position: relative;
       background: var(--marengo);
-      border-top: 1px solid rgba(13,157,205,0.2);
+      border-top: 1px solid rgba(220,31,62,0.2);
       padding: 10px 14px 18px;
     }
     #input-row { display: flex; gap: 10px; align-items: flex-end; }
 
     #msg-input {
       flex: 1; min-width: 0;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(13,157,205,0.3);
+      background: var(--marengo-light);
+      border: 1px solid rgba(220,31,62,0.25);
+      border-radius: 14px;
       padding: 10px 14px;
       color: var(--white);
       font-size: 16px; font-family: "Inter", sans-serif;
@@ -200,19 +179,20 @@
       -webkit-appearance: none; transition: border-color 0.2s;
     }
     #msg-input.scrollable { overflow-y: auto; }
-    #msg-input:focus { border-color: var(--celeste); }
-    #msg-input::placeholder { color: rgba(255,255,255,0.35); font-size: 14px; }
+    #msg-input:focus { border-color: var(--accent); }
+    #msg-input::placeholder { color: rgba(29,29,27,0.4); font-size: 14px; }
 
     #send-btn {
       flex-shrink: 0; width: 40px; height: 40px;
-      background: var(--celeste);
-      border: 1px solid var(--celeste);
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; margin-bottom: 1px;
       -webkit-tap-highlight-color: transparent;
       transition: background 0.15s;
     }
-    #send-btn:active:not(:disabled) { background: var(--celeste-dark); }
+    #send-btn:active:not(:disabled) { background: #b91930; }
     #send-btn:disabled { opacity: 0.35; }
     #send-btn svg { flex-shrink: 0; }
   </style>
@@ -221,7 +201,7 @@
 <div id="app">
   <div id="header">
     <div id="avatar">
-      <img src="/vz-logo-navbar.png" alt="Vargas y Zúñiga"/>
+      <img src="/renata-avatar.png" alt="Renata"/>
     </div>
     <div id="header-info">
       <div id="bot-name">Renata</div>
@@ -232,8 +212,7 @@
       </div>
     </div>
     <div id="brand-block">
-      <div id="brand-monogram"><img src="/vz-logo-navbar.png" alt="VZ"/></div>
-      <div id="brand-name">Vargas &amp; Z&uacute;&ntilde;iga</div>
+      <div id="brand-name">Vargas <span style="color:#dc1f3e">&amp;</span> Z&uacute;&ntilde;iga</div>
     </div>
   </div>
 
@@ -324,7 +303,7 @@
   }
 
   function miniAvatar(){
-    return "<div class=\"msg-avatar\"><img src=\"/vz-logo-navbar.png\" alt=\"VZ\"/></div>";
+    return "<div class=\"msg-avatar\"><img src=\"/renata-avatar.png\" alt=\"Renata\"/></div>";
   }
 
   function addMsg(role,text){

@@ -13,8 +13,8 @@
     #vyz-widget-launcher {
       position: fixed; bottom: 20px; right: 20px; z-index: 999999;
       width: 60px; height: 60px; border-radius: 50%;
-      background: #0d9dcd;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      background: #dc1f3e;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: transform 0.2s ease;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -22,7 +22,7 @@
     #vyz-widget-launcher:hover { transform: scale(1.06); }
     #vyz-widget-launcher::before {
       content: ''; position: absolute; inset: -8px; border-radius: 50%;
-      background: #0d9dcd; opacity: 0.35; z-index: -1;
+      background: #dc1f3e; opacity: 0.35; z-index: -1;
       animation: vyz-breathe 2.4s ease-out infinite;
     }
     @keyframes vyz-breathe {
@@ -44,20 +44,22 @@
       width: 380px; height: 600px; max-height: 80vh;
       border-radius: 18px; overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(13,157,205,0.35);
+      border: 1px solid rgba(220,31,62,0.2);
       display: none; flex-direction: column;
-      background: #262b30;
+      background: #1d1d1b;
     }
     #vyz-widget-panel.vyz-open { display: flex; }
     #vyz-widget-panel iframe { width: 100%; height: 100%; border: none; }
 
     #vyz-widget-close {
-      position: absolute; top: 8px; right: 8px; z-index: 2;
+      position: absolute; top: 6px; right: 6px; z-index: 2;
       width: 26px; height: 26px; border-radius: 50%;
-      background: rgba(0,0,0,0.5); border: none; color: #fff;
-      font-size: 14px; line-height: 1; cursor: pointer;
+      background: #dc1f3e; border: none; color: #ffffff;
+      font-size: 13px; line-height: 1; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s ease;
     }
+    #vyz-widget-close:hover { background: #b91930; }
 
     @media (max-width: 480px) {
       #vyz-widget-panel {
