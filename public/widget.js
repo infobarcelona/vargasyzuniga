@@ -13,7 +13,7 @@
     #vyz-widget-launcher {
       position: fixed; bottom: 20px; right: 20px; z-index: 999999;
       width: 60px; height: 60px; border-radius: 50%;
-      background: #dc1f3e;
+      background: #1746a0;
       box-shadow: 0 4px 20px rgba(0,0,0,0.25);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: transform 0.2s ease;
@@ -22,7 +22,7 @@
     #vyz-widget-launcher:hover { transform: scale(1.06); }
     #vyz-widget-launcher::before {
       content: ''; position: absolute; inset: -8px; border-radius: 50%;
-      background: #dc1f3e; opacity: 0.35; z-index: -1;
+      background: #1746a0; opacity: 0.35; z-index: -1;
       animation: vyz-breathe 2.4s ease-out infinite;
     }
     @keyframes vyz-breathe {
@@ -44,7 +44,7 @@
       width: 380px; height: 600px; max-height: 80vh;
       border-radius: 18px; overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(220,31,62,0.2);
+      border: 1px solid rgba(23,70,160,0.2);
       display: flex; flex-direction: column;
       background: #1d1d1b;
       opacity: 0; visibility: hidden;
@@ -62,12 +62,12 @@
     #vyz-widget-close {
       position: absolute; top: 6px; right: 6px; z-index: 2;
       width: 26px; height: 26px; border-radius: 50%;
-      background: #dc1f3e; border: none; color: #ffffff;
+      background: #1746a0; border: none; color: #ffffff;
       font-size: 13px; line-height: 1; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.15s ease;
     }
-    #vyz-widget-close:hover { background: #b91930; }
+    #vyz-widget-close:hover { background: #123a82; }
 
     @media (max-width: 480px) {
       #vyz-widget-panel {
