@@ -45,10 +45,18 @@
       border-radius: 18px; overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       border: 1px solid rgba(220,31,62,0.2);
-      display: none; flex-direction: column;
+      display: flex; flex-direction: column;
       background: #1d1d1b;
+      opacity: 0; visibility: hidden;
+      transform: translateY(16px) scale(0.96);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
+      pointer-events: none;
     }
-    #vyz-widget-panel.vyz-open { display: flex; }
+    #vyz-widget-panel.vyz-open {
+      opacity: 1; visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
     #vyz-widget-panel iframe { width: 100%; height: 100%; border: none; }
 
     #vyz-widget-close {
@@ -66,6 +74,7 @@
         bottom: 0; right: 0; left: 0; top: 0;
         width: 100%; height: 100%; max-height: 100%;
         border-radius: 0;
+        transform-origin: center;
       }
       #vyz-widget-launcher { bottom: 16px; right: 16px; }
     }
