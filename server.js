@@ -32,6 +32,39 @@ app.post('/api/chat', async (req, res) => {
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
+// ── GOOGLE DRIVE ─────────────────────────────────────────────────────────────
+const { google } = require('googleapis');
+
+function getDriveAuth() {
+  const raw = process.env.GOOGLE_DRIVE_SERVICE_ACCOUNT_JSON;
+  if (!raw) throw new Error('GOOGLE_DRIVE_SERVICE_ACCOUNT_JSON no configurado');
+  const credentials = JSON.parse(raw);
+  return new google.auth.GoogleAuth({
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  });
+}
+
+app.get('/api/drive/carpetas', async (req, res) => {
+  try {
+    const auth = getDriveAuth();
+    const drive = google.drive({ version: 'v3', auth });
+    const FOLDER_ID = '1A_pJ-3Nqe1_1r0zzX7KwZKNp4mN9oNYs';
+
+    const response = await drive.files.list({
+      q: `'${FOLDER_ID}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+      fields: 'files(id, name, modifiedTime)',
+      orderBy: 'name',
+      pageSize: 500,
+    });
+
+    res.json({ ok: true, carpetas: response.data.files });
+  } catch (err) {
+    console.error('[DRIVE] Error:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // ── PORTAL ABOGADOS ──────────────────────────────────────────────────────────
 app.post('/api/portal/login', async (req, res) => {
   try {
