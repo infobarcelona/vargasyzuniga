@@ -4,6 +4,9 @@ const cors = require('cors');
 const path = require('path');
 
 const { connectDB } = require('./lib/db');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { MongoClient } = require('mongodb');
 const { procesarMensaje } = require('./lib/conversationEngine');
 const { correrCicloWatcher } = require('./lib/pjudWatcher');
 const { iniciarWhatsApp, getEstadoWhatsApp, getQRComoImagenPNG } = require('./lib/whatsappBot');
@@ -28,6 +31,56 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
+
+// ── PORTAL ABOGADOS ──────────────────────────────────────────────────────────
+app.post('/api/portal/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email y contraseña son requeridos.' });
+    }
+
+    const client = new MongoClient(process.env.MONGODB_URI);
+    await client.connect();
+    const db = client.db();
+    const user = await db.collection('portal_users').findOne({ email: email.toLowerCase().trim() });
+    await client.close();
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales incorrectas.' });
+    }
+
+    const match = await bcrypt.compare(password, user.password_hash);
+    if (!match) {
+      return res.status(401).json({ message: 'Credenciales incorrectas.' });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email, nombre: user.nombre },
+      process.env.JWT_SECRET || 'vyz_portal_secret_2026',
+      { expiresIn: '8h' }
+    );
+
+    res.json({ token, nombre: user.nombre });
+  } catch (err) {
+    console.error('[PORTAL] Error en login:', err.message);
+    res.status(500).json({ message: 'Error interno del servidor.' });
+  }
+});
+
+app.get('/api/portal/verify', (req, res) => {
+  const auth = req.headers.authorization;
+  if (!auth || !auth.startsWith('Bearer ')) {
+    return res.status(401).json({ ok: false });
+  }
+  try {
+    const token = auth.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
+    res.json({ ok: true, nombre: decoded.nombre });
+  } catch {
+    res.status(401).json({ ok: false });
+  }
+});
 
 // Endpoint manual para correr el watcher del PJUD a demanda (pruebas).
 app.post('/api/pjud/run-once', async (req, res) => {
