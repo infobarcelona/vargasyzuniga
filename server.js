@@ -273,7 +273,7 @@ app.post('/api/onlyoffice/token', async (req, res) => {
     const payload = {
       document: {
         fileType: fileExt,
-        key: (fileId + '_' + Date.now() + '_' + Math.random().toString(36).substr(2,9)).substr(0, 20),
+        key: ('doc' + Date.now().toString(36) + Math.random().toString(36).substr(2,5)).substr(0, 20),
         title: fileName,
         url: `https://vargasyzuniga.onrender.com/api/onlyoffice/download/${fileId}`,
         permissions: { download: true, edit: true, print: true },
