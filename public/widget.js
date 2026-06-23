@@ -94,7 +94,7 @@
   panel.id = 'vyz-widget-panel';
   panel.innerHTML =
     '<button id="vyz-widget-close" aria-label="Cerrar">✕</button>' +
-    '<iframe src="' + origin + '/" title="Chat Vargas y Zuñiga Abogados"></iframe>';
+    '<iframe id="vyz-widget-iframe" src="' + origin + '/" title="Chat Vargas y Zuñiga Abogados"></iframe>';
 
   document.body.appendChild(panel);
   document.body.appendChild(launcher);
