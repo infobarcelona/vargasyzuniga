@@ -306,6 +306,7 @@ app.post('/api/onlyoffice/token', async (req, res) => {
       },
     };
 
+    await registrarAuditoria(req, fileId, fileName, 'abrir_editor');
     const token = jwt.sign(payload, ONLYOFFICE_SECRET);
     payload.token = token;
 
@@ -315,6 +316,30 @@ app.post('/api/onlyoffice/token', async (req, res) => {
     res.status(500).json({ ok: false, error: err.message });
   }
 });
+
+// Registrar acceso en auditoría
+async function registrarAuditoria(req, fileId, fileName, accion) {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
+    const client = new MongoClient(process.env.MONGODB_URI);
+    await client.connect();
+    const db = client.db();
+    await db.collection('auditoria').insertOne({
+      abogado_nombre: decoded.nombre,
+      abogado_email: decoded.email,
+      archivo_id: fileId,
+      archivo_nombre: fileName,
+      accion,
+      fecha: new Date(),
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+    });
+    await client.close();
+  } catch (err) {
+    console.error('[AUDITORIA] Error:', err.message);
+  }
+}
 
 // Descargar archivo desde Drive para OnlyOffice
 app.get('/api/onlyoffice/download/:fileId', async (req, res) => {
@@ -375,6 +400,31 @@ app.post('/api/onlyoffice/callback/:fileId', async (req, res) => {
   } catch (err) {
     console.error('[ONLYOFFICE] Error callback:', err.message);
     res.json({ error: 1 });
+  }
+});
+
+// Obtener registros de auditoría (solo admin)
+app.get('/api/auditoria', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ ok: false });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
+    if (decoded.email !== 'avargas@vargasyzuniga.cl') {
+      return res.status(403).json({ ok: false, error: 'Solo el administrador puede ver la auditoría' });
+    }
+    const client = new MongoClient(process.env.MONGODB_URI);
+    await client.connect();
+    const db = client.db();
+    const registros = await db.collection('auditoria')
+      .find({})
+      .sort({ fecha: -1 })
+      .limit(200)
+      .toArray();
+    await client.close();
+    res.json({ ok: true, registros });
+  } catch (err) {
+    console.error('[AUDITORIA] Error get:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
   }
 });
 
