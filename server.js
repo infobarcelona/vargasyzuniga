@@ -155,6 +155,25 @@ app.post('/api/drive/crear/:folderId', async (req, res) => {
   }
 });
 
+// Renombrar archivo o carpeta
+app.patch('/api/drive/renombrar/:fileId', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const { fileId } = req.params;
+    const { nombre } = req.body;
+    if (!nombre) return res.status(400).json({ ok: false, error: 'Nombre requerido' });
+    const response = await drive.files.update({
+      fileId,
+      requestBody: { name: nombre },
+      fields: 'id, name, mimeType, modifiedTime',
+    });
+    res.json({ ok: true, archivo: response.data });
+  } catch (err) {
+    console.error('[DRIVE] Error renombrar:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // Eliminar archivo o carpeta
 app.delete('/api/drive/eliminar/:fileId', async (req, res) => {
   try {
