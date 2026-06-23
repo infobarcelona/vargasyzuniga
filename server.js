@@ -227,6 +227,127 @@ app.get('/api/drive/carpetas', async (req, res) => {
   }
 });
 
+// ── ONLYOFFICE ───────────────────────────────────────────────────────────────
+app.post('/api/onlyoffice/token', async (req, res) => {
+  try {
+    const { fileId, fileName, mimeType } = req.body;
+    if (!fileId) return res.status(400).json({ ok: false, error: 'fileId requerido' });
+
+    const drive = getDriveClient();
+    
+    // Obtener link de descarga del archivo
+    const fileRes = await drive.files.get({
+      fileId,
+      fields: 'id, name, mimeType, webViewLink, webContentLink',
+    });
+
+    const file = fileRes.data;
+    
+    // URL de descarga directa para OnlyOffice
+    let downloadUrl;
+    if (file.mimeType.startsWith('application/vnd.google-apps')) {
+      // Exportar Google Docs a formato Office
+      const exportMime = {
+        'application/vnd.google-apps.document': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.google-apps.presentation': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      };
+      downloadUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=${encodeURIComponent(exportMime[file.mimeType] || 'application/pdf')}&access_token=${(await getDriveClient().context._options.auth.getAccessToken()).token}`;
+    } else {
+      downloadUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&access_token=TOKEN`;
+    }
+
+    const ONLYOFFICE_SECRET = process.env.JWT_SECRET || 'vyz_onlyoffice_secret_2026';
+    
+    const payload = {
+      document: {
+        fileType: fileName.split('.').pop() || 'docx',
+        key: fileId + '_' + Date.now(),
+        title: fileName,
+        url: `https://vargasyzuniga.onrender.com/api/onlyoffice/download/${fileId}`,
+        permissions: { download: true, edit: true, print: true },
+      },
+      documentType: file.mimeType.includes('spreadsheet') ? 'cell' : file.mimeType.includes('presentation') ? 'slide' : 'word',
+      editorConfig: {
+        callbackUrl: `https://vargasyzuniga.onrender.com/api/onlyoffice/callback/${fileId}`,
+        lang: 'es',
+        mode: 'edit',
+        user: { id: 'abogado', name: 'Abogado V&Z' },
+      },
+    };
+
+    const token = jwt.sign(payload, ONLYOFFICE_SECRET);
+    payload.token = token;
+
+    res.json({ ok: true, config: payload });
+  } catch (err) {
+    console.error('[ONLYOFFICE] Error token:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Descargar archivo desde Drive para OnlyOffice
+app.get('/api/onlyoffice/download/:fileId', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const { fileId } = req.params;
+    
+    const fileMeta = await drive.files.get({ fileId, fields: 'mimeType, name' });
+    const mimeType = fileMeta.data.mimeType;
+
+    if (mimeType.startsWith('application/vnd.google-apps')) {
+      const exportMimes = {
+        'application/vnd.google-apps.document': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.google-apps.presentation': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      };
+      const exportMime = exportMimes[mimeType] || 'application/pdf';
+      const response = await drive.files.export({ fileId, mimeType: exportMime }, { responseType: 'stream' });
+      res.setHeader('Content-Type', exportMime);
+      response.data.pipe(res);
+    } else {
+      const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'stream' });
+      res.setHeader('Content-Type', mimeType);
+      response.data.pipe(res);
+    }
+  } catch (err) {
+    console.error('[ONLYOFFICE] Error download:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Callback de OnlyOffice — guarda el archivo editado de vuelta en Drive
+app.post('/api/onlyoffice/callback/:fileId', async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    const { status, url } = req.body;
+    
+    // Status 2 = documento guardado
+    if (status === 2 || status === 6) {
+      const https = require('https');
+      const drive = getDriveClient();
+      
+      // Descargar el archivo editado desde OnlyOffice
+      const fileStream = await new Promise((resolve, reject) => {
+        https.get(url, resolve).on('error', reject);
+      });
+
+      // Subir de vuelta a Drive
+      await drive.files.update({
+        fileId,
+        media: { body: fileStream },
+      });
+      
+      console.log(`[ONLYOFFICE] Archivo ${fileId} guardado en Drive`);
+    }
+    
+    res.json({ error: 0 });
+  } catch (err) {
+    console.error('[ONLYOFFICE] Error callback:', err.message);
+    res.json({ error: 1 });
+  }
+});
+
 // ── PORTAL ABOGADOS ──────────────────────────────────────────────────────────
 app.post('/api/portal/login', async (req, res) => {
   try {
