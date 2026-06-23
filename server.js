@@ -4,6 +4,8 @@ const cors = require('cors');
 const path = require('path');
 
 const { connectDB } = require('./lib/db');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { MongoClient } = require('mongodb');
@@ -33,6 +35,7 @@ app.post('/api/chat', async (req, res) => {
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 // ── GOOGLE DRIVE ─────────────────────────────────────────────────────────────
+const { Readable } = require('stream');
 const { google } = require('googleapis');
 
 function getDriveAuth() {
@@ -44,6 +47,67 @@ function getDriveAuth() {
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   });
 }
+
+// Subir archivo a una carpeta
+app.post('/api/drive/subir/:folderId', upload.single('archivo'), async (req, res) => {
+  try {
+    const auth = getDriveAuth();
+    const drive = google.drive({ version: 'v3', auth });
+    const { folderId } = req.params;
+    const file = req.file;
+    if (!file) return res.status(400).json({ ok: false, error: 'No se recibió archivo' });
+
+    const stream = Readable.from(file.buffer);
+    const response = await drive.files.create({
+      requestBody: {
+        name: file.originalname,
+        parents: [folderId],
+      },
+      media: {
+        mimeType: file.mimetype,
+        body: stream,
+      },
+      fields: 'id, name, mimeType, modifiedTime, webViewLink',
+    });
+
+    res.json({ ok: true, archivo: response.data });
+  } catch (err) {
+    console.error('[DRIVE] Error subir:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Crear documento Google dentro de una carpeta
+app.post('/api/drive/crear/:folderId', async (req, res) => {
+  try {
+    const auth = getDriveAuth();
+    const drive = google.drive({ version: 'v3', auth });
+    const { folderId } = req.params;
+    const { nombre, tipo } = req.body;
+
+    const mimeTypes = {
+      'doc': 'application/vnd.google-apps.document',
+      'sheet': 'application/vnd.google-apps.spreadsheet',
+      'slide': 'application/vnd.google-apps.presentation',
+    };
+
+    const mimeType = mimeTypes[tipo] || mimeTypes['doc'];
+
+    const response = await drive.files.create({
+      requestBody: {
+        name: nombre || 'Nuevo documento',
+        mimeType,
+        parents: [folderId],
+      },
+      fields: 'id, name, mimeType, modifiedTime, webViewLink',
+    });
+
+    res.json({ ok: true, archivo: response.data });
+  } catch (err) {
+    console.error('[DRIVE] Error crear:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 app.get('/api/drive/archivos/:folderId', async (req, res) => {
   try {
