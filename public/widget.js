@@ -7,6 +7,7 @@
     return scripts[scripts.length - 1];
   })();
   var origin = currentScript.dataset.botUrl || new URL(currentScript.src).origin;
+  var portalTokenExterno = null;
 
   var styleTag = document.createElement('style');
   styleTag.textContent = `
@@ -97,6 +98,18 @@
 
   document.body.appendChild(panel);
   document.body.appendChild(launcher);
+
+  // Escuchar token del portal
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
+      portalTokenExterno = e.data.token;
+      // Enviar al iframe del chat si ya está abierto
+      var iframe = document.getElementById('vyz-widget-iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: 'VYZ_PORTAL_TOKEN', token: portalTokenExterno }, origin);
+      }
+    }
+  });
 
   function toggle() {
     panel.classList.toggle('vyz-open');
