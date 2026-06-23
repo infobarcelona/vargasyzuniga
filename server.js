@@ -36,23 +36,69 @@ app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 // ── GOOGLE DRIVE ─────────────────────────────────────────────────────────────
 const { Readable } = require('stream');
-const { google } = require('googleapis');
 
-function getDriveAuth() {
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_OAUTH_CLIENT_ID,
+  process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+  'https://vargasyzuniga.onrender.com/api/auth/google/callback'
+);
+
+// Si hay refresh token guardado, lo usamos
+let driveRefreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN || null;
+
+if (driveRefreshToken) {
+  oauth2Client.setCredentials({ refresh_token: driveRefreshToken });
+}
+
+function getDriveClient() {
+  if (driveRefreshToken) {
+    oauth2Client.setCredentials({ refresh_token: driveRefreshToken });
+    return google.drive({ version: 'v3', auth: oauth2Client });
+  }
+  // Fallback a service account para lectura
   const raw = process.env.GOOGLE_DRIVE_SERVICE_ACCOUNT_JSON;
-  if (!raw) throw new Error('GOOGLE_DRIVE_SERVICE_ACCOUNT_JSON no configurado');
+  if (!raw) throw new Error('No hay credenciales de Google Drive configuradas');
   const credentials = JSON.parse(raw);
-  return new google.auth.GoogleAuth({
+  const auth = new google.auth.GoogleAuth({
     credentials,
     scopes: ['https://www.googleapis.com/auth/drive'],
   });
+  return google.drive({ version: 'v3', auth });
 }
+
+// Ruta 1: genera URL de autorización
+app.get('/api/auth/google', (req, res) => {
+  const url = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: ['https://www.googleapis.com/auth/drive'],
+  });
+  res.redirect(url);
+});
+
+// Ruta 2: callback de Google
+app.get('/api/auth/google/callback', async (req, res) => {
+  const { code } = req.query;
+  if (!code) return res.status(400).send('Código no recibido');
+  try {
+    const { tokens } = await oauth2Client.getToken(code);
+    oauth2Client.setCredentials(tokens);
+    if (tokens.refresh_token) {
+      driveRefreshToken = tokens.refresh_token;
+      console.log('[OAUTH] Refresh token obtenido — agrégalo a Render como GOOGLE_DRIVE_REFRESH_TOKEN:');
+      console.log(tokens.refresh_token);
+    }
+    res.send('<h2>✅ Autorización exitosa</h2><p>Ya puedes cerrar esta ventana y volver al portal. El refresh token aparece en los logs de Render.</p>');
+  } catch (err) {
+    console.error('[OAUTH] Error:', err.message);
+    res.status(500).send('Error al obtener token: ' + err.message);
+  }
+});
 
 // Subir archivo a una carpeta
 app.post('/api/drive/subir/:folderId', upload.single('archivo'), async (req, res) => {
   try {
-    const auth = getDriveAuth();
-    const drive = google.drive({ version: 'v3', auth });
+    const drive = getDriveClient();
     const { folderId } = req.params;
     const file = req.file;
     if (!file) return res.status(400).json({ ok: false, error: 'No se recibió archivo' });
@@ -80,8 +126,7 @@ app.post('/api/drive/subir/:folderId', upload.single('archivo'), async (req, res
 // Crear documento Google dentro de una carpeta
 app.post('/api/drive/crear/:folderId', async (req, res) => {
   try {
-    const auth = getDriveAuth();
-    const drive = google.drive({ version: 'v3', auth });
+    const drive = getDriveClient();
     const { folderId } = req.params;
     const { nombre, tipo } = req.body;
 
@@ -111,8 +156,7 @@ app.post('/api/drive/crear/:folderId', async (req, res) => {
 
 app.get('/api/drive/archivos/:folderId', async (req, res) => {
   try {
-    const auth = getDriveAuth();
-    const drive = google.drive({ version: 'v3', auth });
+    const drive = getDriveClient();
     const { folderId } = req.params;
 
     const response = await drive.files.list({
@@ -131,8 +175,7 @@ app.get('/api/drive/archivos/:folderId', async (req, res) => {
 
 app.get('/api/drive/carpetas', async (req, res) => {
   try {
-    const auth = getDriveAuth();
-    const drive = google.drive({ version: 'v3', auth });
+    const drive = getDriveClient();
     const FOLDER_ID = '1A_pJ-3Nqe1_1r0zzX7KwZKNp4mN9oNYs';
 
     const response = await drive.files.list({
