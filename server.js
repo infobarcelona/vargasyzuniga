@@ -215,7 +215,7 @@ app.get('/api/drive/carpetas', async (req, res) => {
 
     const response = await drive.files.list({
       q: `'${FOLDER_ID}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
-      fields: 'files(id, name, modifiedTime)',
+      fields: 'files(id, name, mimeType, modifiedTime)',
       orderBy: 'name',
       pageSize: 500,
     });
