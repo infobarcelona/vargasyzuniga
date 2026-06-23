@@ -472,7 +472,7 @@ app.get('/api/portal/verify', (req, res) => {
   try {
     const token = auth.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
-    res.json({ ok: true, nombre: decoded.nombre });
+    res.json({ ok: true, nombre: decoded.nombre, email: decoded.email });
   } catch {
     res.status(401).json({ ok: false });
   }
