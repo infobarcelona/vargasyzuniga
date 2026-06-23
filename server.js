@@ -155,6 +155,40 @@ app.post('/api/drive/crear/:folderId', async (req, res) => {
   }
 });
 
+// Eliminar archivo o carpeta
+app.delete('/api/drive/eliminar/:fileId', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const { fileId } = req.params;
+    await drive.files.delete({ fileId });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[DRIVE] Error eliminar:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Crear carpeta dentro de otra carpeta
+app.post('/api/drive/carpeta/:folderId', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const { folderId } = req.params;
+    const { nombre } = req.body;
+    const response = await drive.files.create({
+      requestBody: {
+        name: nombre || 'Nueva carpeta',
+        mimeType: 'application/vnd.google-apps.folder',
+        parents: [folderId],
+      },
+      fields: 'id, name, mimeType, modifiedTime',
+    });
+    res.json({ ok: true, carpeta: response.data });
+  } catch (err) {
+    console.error('[DRIVE] Error crear carpeta:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 app.get('/api/drive/archivos/:folderId', async (req, res) => {
   try {
     const drive = getDriveClient();
