@@ -352,10 +352,12 @@
     addMsg("user",text);
     busy=true; showTyping();
     try{
-      var r=await fetch("/api/chat",{
+      var portalTok=sessionStorage.getItem('portal_token');
+      var chatUrl=portalTok?"https://vargasyzuniga.onrender.com/api/chat":"/api/chat";
+      var r=await fetch(chatUrl,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({sessionId:sessionId,message:text,portalToken:sessionStorage.getItem('portal_token')||undefined})
+        body:JSON.stringify({sessionId:sessionId,message:text,portalToken:portalTok||undefined})
       });
       var d=await r.json();
       hideTyping();
