@@ -19,12 +19,19 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/chat', async (req, res) => {
-  const { sessionId, message } = req.body;
+  const { sessionId, message, portalToken } = req.body;
   if (!sessionId || !message) {
     return res.status(400).json({ error: 'Faltan sessionId o message' });
   }
   try {
-    const resultado = await procesarMensaje(sessionId, message);
+    let contextoPortal = null;
+    if (portalToken) {
+      try {
+        const decoded = jwt.verify(portalToken, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
+        contextoPortal = { nombre: decoded.nombre, email: decoded.email };
+      } catch {}
+    }
+    const resultado = await procesarMensaje(sessionId, message, contextoPortal);
     res.json(resultado);
   } catch (err) {
     console.error('[CHAT] Error:', err);

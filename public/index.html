@@ -355,7 +355,7 @@
       var r=await fetch("/api/chat",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({sessionId:sessionId,message:text})
+        body:JSON.stringify({sessionId:sessionId,message:text,portalToken:sessionStorage.getItem('portal_token')||undefined})
       });
       var d=await r.json();
       hideTyping();
