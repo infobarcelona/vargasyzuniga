@@ -259,9 +259,20 @@ app.post('/api/onlyoffice/token', async (req, res) => {
 
     const ONLYOFFICE_SECRET = process.env.JWT_SECRET || 'vyz_onlyoffice_secret_2026';
     
+    const mimeToExt = {
+      'application/vnd.google-apps.document': 'docx',
+      'application/vnd.google-apps.spreadsheet': 'xlsx',
+      'application/vnd.google-apps.presentation': 'pptx',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+      'application/pdf': 'pdf',
+    };
+    const fileExt = mimeToExt[file.mimeType] || fileName.split('.').pop() || 'docx';
+
     const payload = {
       document: {
-        fileType: fileName.split('.').pop() || 'docx',
+        fileType: fileExt,
         key: fileId + '_' + Date.now(),
         title: fileName,
         url: `https://vargasyzuniga.onrender.com/api/onlyoffice/download/${fileId}`,
