@@ -35,6 +35,7 @@ app.post('/api/chat', async (req, res) => {
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 // ── GOOGLE DRIVE ─────────────────────────────────────────────────────────────
+const { google } = require('googleapis');
 const { Readable } = require('stream');
 
 const oauth2Client = new google.auth.OAuth2(
