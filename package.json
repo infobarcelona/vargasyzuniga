@@ -21,6 +21,7 @@
     "mammoth": "^1.12.0",
     "mongodb": "^6.10.0",
     "multer": "^2.2.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.16",
     "pino": "^9.5.0",
     "qrcode": "^1.5.4",
