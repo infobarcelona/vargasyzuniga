@@ -45,6 +45,26 @@ function getDriveAuth() {
   });
 }
 
+app.get('/api/drive/archivos/:folderId', async (req, res) => {
+  try {
+    const auth = getDriveAuth();
+    const drive = google.drive({ version: 'v3', auth });
+    const { folderId } = req.params;
+
+    const response = await drive.files.list({
+      q: `'${folderId}' in parents and trashed = false`,
+      fields: 'files(id, name, mimeType, modifiedTime, size, webViewLink)',
+      orderBy: 'name',
+      pageSize: 500,
+    });
+
+    res.json({ ok: true, archivos: response.data.files });
+  } catch (err) {
+    console.error('[DRIVE] Error archivos:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 app.get('/api/drive/carpetas', async (req, res) => {
   try {
     const auth = getDriveAuth();
