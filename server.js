@@ -155,6 +155,52 @@ app.post('/api/drive/crear/:folderId', async (req, res) => {
   }
 });
 
+// Archivos recientes para Renata
+app.get('/api/drive/recientes', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const response = await drive.files.list({
+      q: "trashed = false and mimeType != 'application/vnd.google-apps.folder'",
+      fields: 'files(id, name, mimeType, modifiedTime, parents)',
+      orderBy: 'modifiedTime desc',
+      pageSize: 10,
+    });
+    res.json({ ok: true, archivos: response.data.files });
+  } catch (err) {
+    console.error('[DRIVE] Error recientes:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Leer contenido de un archivo para Renata
+app.get('/api/drive/contenido/:fileId', async (req, res) => {
+  try {
+    const drive = getDriveClient();
+    const { fileId } = req.params;
+    const fileMeta = await drive.files.get({ fileId, fields: 'mimeType, name' });
+    const mimeType = fileMeta.data.mimeType;
+
+    let texto = '';
+
+    if (mimeType === 'application/vnd.google-apps.document') {
+      const response = await drive.files.export({ fileId, mimeType: 'text/plain' }, { responseType: 'text' });
+      texto = response.data.substring(0, 8000);
+    } else if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'arraybuffer' });
+      const mammoth = require('mammoth');
+      const result = await mammoth.extractRawText({ buffer: Buffer.from(response.data) });
+      texto = result.value.substring(0, 8000);
+    } else {
+      texto = `[Archivo de tipo ${mimeType} — no se puede leer el contenido directamente]`;
+    }
+
+    res.json({ ok: true, nombre: fileMeta.data.name, contenido: texto });
+  } catch (err) {
+    console.error('[DRIVE] Error contenido:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // Renombrar archivo o carpeta
 app.patch('/api/drive/renombrar/:fileId', async (req, res) => {
   try {
