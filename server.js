@@ -207,6 +207,30 @@ app.get('/api/drive/contenido/:fileId', async (req, res) => {
       const mammoth = require('mammoth');
       const result = await mammoth.extractRawText({ buffer: Buffer.from(response.data) });
       texto = result.value.substring(0, 8000);
+    } else if (mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+               mimeType === 'application/vnd.ms-excel' ||
+               mimeType === 'application/vnd.google-apps.spreadsheet') {
+      let buffer;
+      if (mimeType === 'application/vnd.google-apps.spreadsheet') {
+        const response = await drive.files.export({ fileId, mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }, { responseType: 'arraybuffer' });
+        buffer = Buffer.from(response.data);
+      } else {
+        const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'arraybuffer' });
+        buffer = Buffer.from(response.data);
+      }
+      const XLSX = require('xlsx');
+      const workbook = XLSX.read(buffer, { type: 'buffer' });
+      const textos = workbook.SheetNames.map(sheetName => {
+        const sheet = workbook.Sheets[sheetName];
+        return `[Hoja: ${sheetName}]
+${XLSX.utils.sheet_to_csv(sheet)}`;
+      });
+      texto = textos.join('
+
+').substring(0, 8000);
+    } else if (mimeType === 'text/plain') {
+      const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'text' });
+      texto = response.data.substring(0, 8000);
     } else {
       texto = `[Archivo de tipo ${mimeType} — no se puede leer el contenido directamente]`;
     }
