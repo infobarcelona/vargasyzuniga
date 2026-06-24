@@ -32,7 +32,6 @@ app.post('/api/chat', async (req, res) => {
   }
   try {
     let contextoPortal = null;
-    console.log('[CHAT] portalToken recibido:', portalToken ? 'SI' : 'NO');
     if (portalToken) {
       try {
         const decoded = jwt.verify(portalToken, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
