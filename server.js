@@ -225,9 +225,7 @@ app.get('/api/drive/contenido/:fileId', async (req, res) => {
         return `[Hoja: ${sheetName}]
 ${XLSX.utils.sheet_to_csv(sheet)}`;
       });
-      texto = textos.join('
-
-').substring(0, 8000);
+      texto = textos.join('\n\n').substring(0, 8000);
     } else if (mimeType === 'text/plain') {
       const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'text' });
       texto = response.data.substring(0, 8000);
