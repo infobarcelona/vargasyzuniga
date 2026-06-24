@@ -246,7 +246,15 @@
   window.addEventListener('message', function(e) {
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
       portalToken = e.data.token;
-
+      // Personalizar bienvenida con nombre del abogado
+      if (e.data.nombre) {
+        var primerNombre = e.data.nombre.split(' ')[0];
+        var welcomeEl = document.querySelector('.vyz-welcome-msg');
+        if (welcomeEl) {
+          welcomeEl.textContent = 'Buenos días, ' + primerNombre + '. ¿En qué puedo ayudarte hoy?';
+        }
+        WELCOME = 'Buenos días, ' + primerNombre + '. ¿En qué puedo ayudarte hoy?';
+      }
     }
   });
 
