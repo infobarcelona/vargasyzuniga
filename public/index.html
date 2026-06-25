@@ -251,10 +251,8 @@
       // Solo actualizar archivoActivo si viene definido en este mensaje
       if (e.data.archivoActivo !== undefined) archivoActivo = e.data.archivoActivo;
       // Personalizar bienvenida solo una vez, y solo si llega el nombre
-      console.log('[VYZ] msg type:', e.data.type, '| nombre:', e.data.nombre, '| saludoYaAplicado:', saludoYaAplicado);
       if (e.data.nombre && !saludoYaAplicado) {
         saludoYaAplicado = true;
-        console.log('[VYZ] Aplicando saludo personalizado!');
         var primerNombre = e.data.nombre.split(' ')[0];
         // Hora actual en Chile
         var horaChile = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', hour: 'numeric', hour12: false }).format(new Date()), 10);
