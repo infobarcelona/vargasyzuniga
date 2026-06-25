@@ -244,13 +244,15 @@
   var sessionId = "web-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
   var portalToken = null;
   var archivoActivo = null;
+  var saludoYaAplicado = false;
   window.addEventListener('message', function(e) {
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
-      portalToken = e.data.token;
-      archivoActivo = e.data.archivoActivo || null;
-      console.log('[VYZ DEBUG] postMessage recibido. nombre:', e.data.nombre);
-      // Personalizar bienvenida con nombre del abogado y momento del dia
-      if (e.data.nombre) {
+      if (e.data.token) portalToken = e.data.token;
+      // Solo actualizar archivoActivo si viene definido en este mensaje
+      if (e.data.archivoActivo !== undefined) archivoActivo = e.data.archivoActivo;
+      // Personalizar bienvenida solo una vez, y solo si llega el nombre
+      if (e.data.nombre && !saludoYaAplicado) {
+        saludoYaAplicado = true;
         var primerNombre = e.data.nombre.split(' ')[0];
         // Hora actual en Chile
         var horaChile = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', hour: 'numeric', hour12: false }).format(new Date()), 10);
