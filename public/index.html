@@ -248,14 +248,21 @@
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
       portalToken = e.data.token;
       archivoActivo = e.data.archivoActivo || null;
-      // Personalizar bienvenida con nombre del abogado
+      // Personalizar bienvenida con nombre del abogado y momento del dia
       if (e.data.nombre) {
         var primerNombre = e.data.nombre.split(' ')[0];
+        // Hora actual en Chile
+        var horaChile = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', hour: 'numeric', hour12: false }).format(new Date()), 10);
+        var saludo;
+        if (horaChile >= 6 && horaChile < 12) saludo = 'Buenos días';
+        else if (horaChile >= 12 && horaChile < 20) saludo = 'Buenas tardes';
+        else saludo = 'Buenas noches';
+        var saludoPortal = 'Hola ' + primerNombre + ', ' + saludo.toLowerCase() + '. ¿En qué puedo ayudarte?';
         var welcomeEl = document.querySelector('.vyz-welcome-msg');
         if (welcomeEl) {
-          welcomeEl.textContent = 'Buenos días, ' + primerNombre + '. ¿En qué puedo ayudarte hoy?';
+          welcomeEl.textContent = saludoPortal;
         }
-        WELCOME = 'Buenos días, ' + primerNombre + '. ¿En qué puedo ayudarte hoy?';
+        WELCOME = saludoPortal;
       }
     }
   });
