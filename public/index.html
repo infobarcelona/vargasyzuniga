@@ -259,10 +259,16 @@
         else saludo = 'Buenas noches';
         var saludoPortal = 'Hola ' + primerNombre + ', ' + saludo.toLowerCase() + '. ¿En qué puedo ayudarte?';
         WELCOME = saludoPortal;
-        var welcomeEl = document.getElementById('vyz-welcome-bubble');
-        if (welcomeEl) {
-          welcomeEl.innerHTML = parseText(saludoPortal);
-        }
+        // Reemplazar el bubble de bienvenida, reintentando si aun no existe
+        var aplicarSaludo = function(intentos) {
+          var welcomeEl = document.getElementById('vyz-welcome-bubble');
+          if (welcomeEl) {
+            welcomeEl.innerHTML = parseText(saludoPortal);
+          } else if (intentos > 0) {
+            setTimeout(function() { aplicarSaludo(intentos - 1); }, 200);
+          }
+        };
+        aplicarSaludo(15);
       }
     }
   });
