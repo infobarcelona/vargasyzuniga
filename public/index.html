@@ -243,9 +243,11 @@
   var WELCOME = "Bienvenido a Vargas y Z\u00fa\u00f1iga Abogados. Soy Renata, secretaria del estudio. \u00bfEn qu\u00e9 puedo ayudarle?";
   var sessionId = "web-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
   var portalToken = null;
+  var archivoActivo = null;
   window.addEventListener('message', function(e) {
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
       portalToken = e.data.token;
+      archivoActivo = e.data.archivoActivo || null;
       // Personalizar bienvenida con nombre del abogado
       if (e.data.nombre) {
         var primerNombre = e.data.nombre.split(' ')[0];
@@ -371,7 +373,7 @@
       var r=await fetch(chatUrl,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({sessionId:sessionId,message:text,portalToken:portalToken||undefined})
+        body:JSON.stringify({sessionId:sessionId,message:text,portalToken:portalToken||undefined,archivoActivo:archivoActivo||undefined})
       });
       var d=await r.json();
       hideTyping();

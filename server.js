@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/chat', async (req, res) => {
-  const { sessionId, message, portalToken } = req.body;
+  const { sessionId, message, portalToken, archivoActivo } = req.body;
   if (!sessionId || !message) {
     return res.status(400).json({ error: 'Faltan sessionId o message' });
   }
@@ -35,7 +35,7 @@ app.post('/api/chat', async (req, res) => {
     if (portalToken) {
       try {
         const decoded = jwt.verify(portalToken, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
-        contextoPortal = { nombre: decoded.nombre, email: decoded.email };
+        contextoPortal = { nombre: decoded.nombre, email: decoded.email, archivoActivo: archivoActivo || null };
         console.log('[CHAT] contextoPortal:', contextoPortal.nombre);
       } catch (e) {
         console.log('[CHAT] Error verificando token:', e.message);
