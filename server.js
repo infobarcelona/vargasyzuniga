@@ -36,6 +36,7 @@ app.post('/api/chat', async (req, res) => {
       try {
         const decoded = jwt.verify(portalToken, process.env.JWT_SECRET || 'vyz_portal_secret_2026');
         contextoPortal = { nombre: decoded.nombre, email: decoded.email, archivoActivo: archivoActivo || null };
+        console.log('[PORTAL] archivoActivo recibido:', archivoActivo ? archivoActivo.nombre : 'null');
         console.log('[CHAT] contextoPortal:', contextoPortal.nombre);
       } catch (e) {
         console.log('[CHAT] Error verificando token:', e.message);
