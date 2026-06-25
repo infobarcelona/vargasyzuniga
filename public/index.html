@@ -248,6 +248,7 @@
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
       portalToken = e.data.token;
       archivoActivo = e.data.archivoActivo || null;
+      console.log('[VYZ DEBUG] postMessage recibido. nombre:', e.data.nombre);
       // Personalizar bienvenida con nombre del abogado y momento del dia
       if (e.data.nombre) {
         var primerNombre = e.data.nombre.split(' ')[0];
