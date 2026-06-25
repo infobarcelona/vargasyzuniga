@@ -413,11 +413,27 @@
   var wr=document.createElement("div"); wr.className="row bot";
   var ww=document.createElement("div"); ww.className="bubble-wrap";
   var wb=document.createElement("div"); wb.className="bubble bot"; wb.id="vyz-welcome-bubble";
-  wb.innerHTML=parseText(WELCOME);
   var wt=document.createElement("div"); wt.className="msg-time"; wt.textContent=ts();
   ww.appendChild(wb); ww.appendChild(wt);
   wr.innerHTML=miniAvatar(); wr.appendChild(ww);
   msgsEl.appendChild(wr);
+  // Detectar si estamos en el portal (dentro de un iframe). Si es asi,
+  // esperar brevemente a que llegue el saludo personalizado antes de
+  // pintar el mensaje de bienvenida, para no mostrar el generico.
+  var estaEnIframe = (window.self !== window.top);
+  if (estaEnIframe) {
+    wb.innerHTML = parseText('...');
+    var pintarBienvenida = function(intentos) {
+      if (saludoYaAplicado || intentos <= 0) {
+        wb.innerHTML = parseText(WELCOME);
+      } else {
+        setTimeout(function(){ pintarBienvenida(intentos - 1); }, 150);
+      }
+    };
+    pintarBienvenida(20);
+  } else {
+    wb.innerHTML = parseText(WELCOME);
+  }
   sendBtn.disabled=true;
 })();
 </script>
