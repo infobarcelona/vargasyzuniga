@@ -203,7 +203,8 @@ app.get('/api/drive/contenido/:fileId', async (req, res) => {
     if (mimeType === 'application/vnd.google-apps.document') {
       const response = await drive.files.export({ fileId, mimeType: 'text/plain' }, { responseType: 'text' });
       texto = response.data.substring(0, 8000);
-    } else if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    } else if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+               mimeType === 'application/msword') {
       const response = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'arraybuffer' });
       const mammoth = require('mammoth');
       const result = await mammoth.extractRawText({ buffer: Buffer.from(response.data) });
