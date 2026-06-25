@@ -100,13 +100,17 @@
   document.body.appendChild(launcher);
 
   // Escuchar token del portal
+  var nombreExterno = null;
+  var archivoActivoExterno = null;
   window.addEventListener('message', function(e) {
     if (e.data && e.data.type === 'VYZ_PORTAL_TOKEN') {
       portalTokenExterno = e.data.token;
-      // Enviar al iframe del chat si ya está abierto
+      nombreExterno = e.data.nombre || null;
+      archivoActivoExterno = e.data.archivoActivo || null;
+      // Enviar al iframe del chat si ya está abierto (reenviando TODO el payload)
       var iframe = document.getElementById('vyz-widget-iframe');
       if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: 'VYZ_PORTAL_TOKEN', token: portalTokenExterno }, origin);
+        iframe.contentWindow.postMessage({ type: 'VYZ_PORTAL_TOKEN', token: portalTokenExterno, nombre: nombreExterno, archivoActivo: archivoActivoExterno }, origin);
       }
     }
   });
