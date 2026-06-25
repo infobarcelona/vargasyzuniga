@@ -258,11 +258,11 @@
         else if (horaChile >= 12 && horaChile < 20) saludo = 'Buenas tardes';
         else saludo = 'Buenas noches';
         var saludoPortal = 'Hola ' + primerNombre + ', ' + saludo.toLowerCase() + '. ¿En qué puedo ayudarte?';
-        var welcomeEl = document.querySelector('.vyz-welcome-msg');
-        if (welcomeEl) {
-          welcomeEl.textContent = saludoPortal;
-        }
         WELCOME = saludoPortal;
+        var welcomeEl = document.getElementById('vyz-welcome-bubble');
+        if (welcomeEl) {
+          welcomeEl.innerHTML = parseText(saludoPortal);
+        }
       }
     }
   });
@@ -403,7 +403,7 @@
   // Mensaje de bienvenida
   var wr=document.createElement("div"); wr.className="row bot";
   var ww=document.createElement("div"); ww.className="bubble-wrap";
-  var wb=document.createElement("div"); wb.className="bubble bot";
+  var wb=document.createElement("div"); wb.className="bubble bot"; wb.id="vyz-welcome-bubble";
   wb.innerHTML=parseText(WELCOME);
   var wt=document.createElement("div"); wt.className="msg-time"; wt.textContent=ts();
   ww.appendChild(wb); ww.appendChild(wt);
