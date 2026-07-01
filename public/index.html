@@ -13,8 +13,8 @@
     :root {
       --marengo: #ffffff;
       --marengo-light: #f1edeb;
-      --celeste: #1d1d1b;
-      --celeste-dark: #5b5b59;
+      --celeste: #ffffff;
+      --celeste-dark: #1746a0;
       --white: #1d1d1b;
       --accent: #1746a0;
     }
@@ -92,7 +92,7 @@
     .row.bot  { justify-content: flex-start; align-items: flex-end; gap: 8px; }
 
     .msg-avatar {
-      width: 22px; height: 22px; flex-shrink: 0;
+      width: 36px; height: 36px; flex-shrink: 0;
       border: 1px solid rgba(23,70,160,0.25);
       border-radius: 50%;
       overflow: hidden; margin-bottom: 2px;
@@ -111,16 +111,17 @@
       word-break: break-word; white-space: pre-wrap;
       animation: fadeUp 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border-radius: 16px;
+      border: 1px solid rgba(23,70,160,0.12);
       position: relative;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      color: #ffffff;
+      color: #363636;
     }
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
     .bubble.bot {
       background: var(--celeste);
     }
-    .bubble.bot strong { color: #ffffff; font-weight: 700; }
+    .bubble.bot strong { color: #8492a6; font-weight: 700; }
 
     .bubble.user {
       background: var(--celeste-dark);
