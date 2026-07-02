@@ -104,8 +104,21 @@ app.get('/api/auth/google/callback', async (req, res) => {
     oauth2Client.setCredentials(tokens);
     if (tokens.refresh_token) {
       driveRefreshToken = tokens.refresh_token;
-      console.log('[OAUTH] Refresh token obtenido — agrégalo a Render como GOOGLE_DRIVE_REFRESH_TOKEN:');
-      console.log(tokens.refresh_token);
+      console.log('[OAUTH] Nuevo refresh token obtenido y guardado en MongoDB');
+      try {
+        const mongoClient = new MongoClient(process.env.MONGODB_URI);
+        await mongoClient.connect();
+        const mdb = mongoClient.db();
+        await mdb.collection('config').updateOne(
+          { key: 'google_drive_refresh_token' },
+          { $set: { key: 'google_drive_refresh_token', value: tokens.refresh_token, updatedAt: new Date() } },
+          { upsert: true }
+        );
+        await mongoClient.close();
+        console.log('[OAUTH] Token guardado en MongoDB correctamente');
+      } catch (dbErr) {
+        console.error('[OAUTH] Error guardando token en MongoDB:', dbErr.message);
+      }
     }
     res.send('<h2>✅ Autorización exitosa</h2><p>Ya puedes cerrar esta ventana y volver al portal. El refresh token aparece en los logs de Render.</p>');
   } catch (err) {
@@ -633,7 +646,20 @@ app.get('/whatsapp', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 connectDB()
-  .then((db) => {
+  .then(async (db) => {
+    // Cargar refresh token desde MongoDB si no está en variable de entorno
+    if (!driveRefreshToken) {
+      try {
+        const cfg = await db.collection('config').findOne({ key: 'google_drive_refresh_token' });
+        if (cfg && cfg.value) {
+          driveRefreshToken = cfg.value;
+          oauth2Client.setCredentials({ refresh_token: driveRefreshToken });
+          console.log('[OAUTH] Refresh token cargado desde MongoDB');
+        }
+      } catch (e) {
+        console.error('[OAUTH] Error cargando token desde MongoDB:', e.message);
+      }
+    }
     app.listen(PORT, () => {
       console.log(`[SERVER] Kit Legal backoffice corriendo en puerto ${PORT}`);
     });
