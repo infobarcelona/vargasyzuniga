@@ -667,11 +667,10 @@ connectDB()
     // Ciclo automatico del watcher del PJUD
     const intervaloMin = parseInt(process.env.PJUD_WATCHER_INTERVALO_MINUTOS || '10', 10);
     setInterval(async () => {
+      console.log('[PJUD] Iniciando ciclo automatico...');
       try {
         const resumen = await correrCicloWatcher();
-        if (resumen.correosRevisados > 0 || resumen.errores.length > 0) {
-          console.log('[PJUD] Ciclo automatico:', resumen);
-        }
+        console.log('[PJUD] Ciclo automatico completado:', resumen);
       } catch (err) {
         console.error('[PJUD] Error en ciclo automatico:', err.message);
       }
