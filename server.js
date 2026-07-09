@@ -108,7 +108,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
       try {
         const mongoClient = new MongoClient(process.env.MONGODB_URI);
         await mongoClient.connect();
-        const mdb = mongoClient.db();
+        const mdb = mongoClient.db(process.env.MONGODB_DB_NAME || 'kit_legal_vyz');
         await mdb.collection('config').updateOne(
           { key: 'google_drive_refresh_token' },
           { $set: { key: 'google_drive_refresh_token', value: tokens.refresh_token, updatedAt: new Date() } },
