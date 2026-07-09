@@ -332,14 +332,23 @@ app.get('/api/drive/carpetas', async (req, res) => {
     const drive = getDriveClient();
     const FOLDER_ID = '1A_pJ-3Nqe1_1r0zzX7KwZKNp4mN9oNYs';
 
-    const response = await drive.files.list({
-      q: `'${FOLDER_ID}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
-      fields: 'files(id, name, mimeType, modifiedTime)',
-      orderBy: 'name',
-      pageSize: 500,
-    });
+    let allFolders = [];
+    let pageToken = null;
 
-    res.json({ ok: true, carpetas: response.data.files });
+    do {
+      const response = await drive.files.list({
+        q: `'${FOLDER_ID}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+        fields: 'nextPageToken, files(id, name, mimeType, modifiedTime)',
+        orderBy: 'name',
+        pageSize: 500,
+        ...(pageToken ? { pageToken } : {}),
+      });
+      allFolders = allFolders.concat(response.data.files || []);
+      pageToken = response.data.nextPageToken || null;
+    } while (pageToken);
+
+    console.log(`[DRIVE] Carpetas cargadas: ${allFolders.length}`);
+    res.json({ ok: true, carpetas: allFolders });
   } catch (err) {
     console.error('[DRIVE] Error:', err.message);
     res.status(500).json({ ok: false, error: err.message });
