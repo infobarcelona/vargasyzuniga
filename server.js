@@ -687,6 +687,7 @@ app.get('/api/renata/disponibilidad', async (req, res) => {
 app.post('/api/renata/agendar', async (req, res) => {
   try {
     const { nombre, email, telefono, fecha, hora, motivo } = req.body;
+    console.log('[RENATA] Datos recibidos para agendar:', JSON.stringify({ nombre, fecha, hora, motivo }));
     if (!nombre || !fecha || !hora) {
       return res.status(400).json({ ok: false, error: 'Faltan datos: nombre, fecha y hora son obligatorios' });
     }
