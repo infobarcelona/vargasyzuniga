@@ -759,6 +759,19 @@ app.post('/api/renata/agendar', async (req, res) => {
       descripcion_caso: motivo || 'Agendado via Renata telefónica'
     });
     console.log('[RENATA] Cita agendada via llamada:', { nombre, fecha, hora });
+    
+    // Enviar correo de confirmación al cliente
+    if (resultado.ok && email && email !== 'sin-email@vargasyzuniga.cl') {
+      const { enviarConfirmacionCliente } = require('./lib/mailer');
+      enviarConfirmacionCliente({
+        leadData: { nombre, email, fecha_visita: fecha, hora_visita: hora },
+        nombreEstudio: 'Vargas & Zúñiga Abogados'
+      }).then(r => {
+        if (r.ok) console.log('[RENATA] Correo confirmación enviado a:', email);
+        else console.error('[RENATA] Error enviando correo:', r.error);
+      });
+    }
+    
     res.json({ ok: resultado.ok, eventLink: resultado.eventLink, error: resultado.error });
   } catch (err) {
     console.error('[RENATA] Error agendando cita:', err.message);
