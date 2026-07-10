@@ -654,6 +654,60 @@ app.get('/whatsapp', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
+
+// ── ENDPOINTS PARA ELEVENLABS / RENATA TELEFÓNICA ────────────────────────────
+
+// Endpoint 1: Verificar disponibilidad para una fecha
+app.get('/api/renata/disponibilidad', async (req, res) => {
+  try {
+    const { fecha } = req.query;
+    if (!fecha) return res.status(400).json({ ok: false, error: 'Falta el parámetro fecha (DD/MM/YYYY)' });
+    const { consultarDisponibilidad } = require('./lib/googleCalendar');
+    const ocupados = await consultarDisponibilidad(fecha);
+    const bloques = ['15:00', '16:00', '17:00', '18:00'];
+    const disponibles = bloques.filter(hora => {
+      const [h, m] = hora.split(':').map(Number);
+      const inicioMin = h * 60 + m;
+      const finMin = inicioMin + 60;
+      return !ocupados.some(rango => {
+        const [ini, fin] = rango.split('-');
+        const [hIni, mIni] = ini.split(':').map(Number);
+        const [hFin, mFin] = fin.split(':').map(Number);
+        return inicioMin < (hFin * 60 + mFin) && finMin > (hIni * 60 + mIni);
+      });
+    });
+    res.json({ ok: true, fecha, ocupados, disponibles });
+  } catch (err) {
+    console.error('[RENATA] Error consultando disponibilidad:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Endpoint 2: Crear cita desde llamada telefónica
+app.post('/api/renata/agendar', async (req, res) => {
+  try {
+    const { nombre, email, telefono, fecha, hora, motivo } = req.body;
+    if (!nombre || !fecha || !hora) {
+      return res.status(400).json({ ok: false, error: 'Faltan datos: nombre, fecha y hora son obligatorios' });
+    }
+    const { crearEvento } = require('./lib/googleCalendar');
+    const resultado = await crearEvento({
+      nombre,
+      email: email || 'sin-email@vargasyzuniga.cl',
+      telefono: telefono || 'No proporcionado',
+      fecha,
+      hora,
+      motivo: motivo || 'Consulta juridica',
+      canal: 'llamada-telefonica'
+    });
+    console.log('[RENATA] Cita agendada via llamada:', { nombre, fecha, hora });
+    res.json({ ok: resultado.ok, eventLink: resultado.eventLink, error: resultado.error });
+  } catch (err) {
+    console.error('[RENATA] Error agendando cita:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 connectDB()
   .then(async (db) => {
     // Cargar refresh token desde MongoDB si no está en variable de entorno
