@@ -695,10 +695,11 @@ app.post('/api/renata/agendar', async (req, res) => {
       nombre,
       email: email || 'sin-email@vargasyzuniga.cl',
       telefono: telefono || 'No proporcionado',
-      fecha,
-      hora,
-      motivo: motivo || 'Consulta juridica',
-      canal: 'llamada-telefonica'
+      fecha_visita: fecha,
+      hora_visita: hora,
+      area_legal: motivo || 'Consulta juridica',
+      tipo_cliente: 'Llamada telefónica',
+      descripcion_caso: motivo || 'Agendado via Renata telefónica'
     });
     console.log('[RENATA] Cita agendada via llamada:', { nombre, fecha, hora });
     res.json({ ok: resultado.ok, eventLink: resultado.eventLink, error: resultado.error });
