@@ -655,6 +655,62 @@ app.get('/whatsapp', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 
+
+// ── CRON: Actualizar fecha y hora en ElevenLabs cada día ─────────────────────
+async function actualizarFechaElevenLabs() {
+  try {
+    const ahora = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' }));
+    const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const diaSemana = dias[ahora.getDay()];
+    const dia = ahora.getDate();
+    const mes = meses[ahora.getMonth()];
+    const anio = ahora.getFullYear();
+    const hora = String(ahora.getHours()).padStart(2, '0');
+    const minuto = String(ahora.getMinutes()).padStart(2, '0');
+    
+    const fechaHoy = `${diaSemana} ${dia} de ${mes} de ${anio}`;
+    const horaActual = `${hora}:${minuto}`;
+
+    const agentId = 'agent_3201kvbyx2pney2a8qzncz89wt5w';
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    
+    if (!apiKey) {
+      console.log('[ELEVENLABS] No hay API key configurada');
+      return;
+    }
+
+    const res = await fetch(`https://api.elevenlabs.io/v1/convai/agents/${agentId}`, {
+      method: 'PATCH',
+      headers: {
+        'xi-api-key': apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        conversation_config: {
+          agent: {
+            prompt: {
+              variables: [
+                { name: 'fecha_hoy', value: fechaHoy },
+                { name: 'hora_actual', value: horaActual }
+              ]
+            }
+          }
+        }
+      })
+    });
+
+    if (res.ok) {
+      console.log(`[ELEVENLABS] Fecha actualizada: ${fechaHoy} ${horaActual}`);
+    } else {
+      const err = await res.text();
+      console.error('[ELEVENLABS] Error actualizando fecha:', err);
+    }
+  } catch (err) {
+    console.error('[ELEVENLABS] Error en cron fecha:', err.message);
+  }
+}
+
 // ── ENDPOINTS PARA ELEVENLABS / RENATA TELEFÓNICA ────────────────────────────
 
 // Endpoint 1: Verificar disponibilidad para una fecha
@@ -741,6 +797,10 @@ connectDB()
       }
     }, intervaloMin * 60 * 1000);
     console.log(`[PJUD] Watcher automatico activo cada ${intervaloMin} minutos.`);
+
+    // Actualizar fecha en ElevenLabs al arrancar y cada hora
+    actualizarFechaElevenLabs();
+    setInterval(actualizarFechaElevenLabs, 60 * 60 * 1000);
 
     // Conexion de WhatsApp
     iniciarWhatsApp(db).catch((err) => {
